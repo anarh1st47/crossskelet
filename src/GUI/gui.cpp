@@ -131,10 +131,16 @@ static void SetupAndCheckPanels()
 		auto eng = panoramaEngine->AccessUIEngine();
         cvar->ConsoleDPrintf("Panel symbol: (%s)\n", eng->ResolveSymbol(type));
         //GUI::skeleMain = eng->CreatePanel(&type, "SkeleMain", root)->panel;
-		//typedef panorama::PanelWrapper* (__thiscall *oCreatePanel)(void*, panorama::CPanoramaSymbol* panelType, char const* id, panorama::IUIPanel* createInThisParent);
-		//GUI::skeleMain = getvfunc<oCreatePanel>(eng, 146)(eng, &type, "SkeleMain", root)->panel;
-		GUI::skeleMain = eng->CreatePanel(&type, "SkeleMain", root)->panel;
-        eng->RunScript(root, jsCode, "panorama/layout/base.xml", 8, 10, false);
+		typedef panorama::PanelWrapper* (__thiscall *oCreatePanel)(void*, panorama::CPanoramaSymbol panelType, char const* id, panorama::IUIPanel* createInThisParent);
+		auto shit = getvfunc<oCreatePanel>(eng, 147)(eng, type, "SkeleMain", root);
+		GUI::skeleMain = shit->panel;
+		//GUI::skeleMain = eng->CreatePanel(&type, "SkeleMain", root)->panel;
+
+		typedef int(__thiscall* oRunScript)(void*, panorama::IUIPanel * panel, char const* entireJSCode, char const* pathToXMLContext, int, int, bool alreadyCompiled, bool);
+
+
+		getvfunc<oRunScript>(eng, 112)(eng, root, jsCode, "panorama/layout/base.xml", 8, 10, false, 0);
+        //eng->RunScript(root, jsCode, "panorama/layout/base.xml", 8, 10, false);
         cvar->ConsoleDPrintf("Root ID: %s\n", root->GetID());
         GUI::skeleMain->SetHitTestEnabled( true );
         GUI::skeleMain->SetHitTestEnabledTraverse( true );
