@@ -29,7 +29,9 @@ namespace panorama
     {
     public:
         virtual void DESTROY1(void) = 0;
+#ifndef WIN32
         virtual void DESTROY2(void) = 0;
+#endif
         virtual void Initialize(IUIWindow *, IUIPanel *, const char *, unsigned int) = 0;
         virtual void InitClonedPanel(IUIPanel *other) = 0;
         virtual void RegisterEventHandlersOnPanel2DType(CPanoramaSymbol) = 0;

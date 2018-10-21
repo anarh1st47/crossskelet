@@ -31,8 +31,14 @@ static inline void escapeQuotes( ) {
 
 static panorama::IUIPanel* GetRoot(bool inGame)
 {
-    panorama::IUIPanel* panel = panoramaEngine->AccessUIEngine()->GetLastDispatchedEventTargetPanel();
-
+    auto eng = panoramaEngine->AccessUIEngine();
+    //return nullptr;
+    //auto test = eng->IsValidPanelPointer((panorama::IUIPanel*)0x1337);
+    //return NULL;
+    //auto tes = eng->GetApplicationInstallPath();
+    //return 0;
+	auto panel = eng->GetLastDispatchedEventTargetPanel();
+    //return nullptr;
     if (!panoramaEngine->AccessUIEngine()->IsValidPanelPointer(panel))
     {
 		cvar->ConsoleDPrintf("[GUI::GetRoot]Failed to grab Last Event Target Panel!\n");
@@ -122,9 +128,10 @@ static void SetupAndCheckPanels()
         snprintf(jsCode, JS_MAX, cuckProtocol, mainXML.c_str());
 
         panorama::CPanoramaSymbol type = panoramaEngine->AccessUIEngine()->MakeSymbol("Panel");
-        cvar->ConsoleDPrintf("Panel symbol: (%s)\n", panoramaEngine->AccessUIEngine()->ResolveSymbol(type));
-        GUI::skeleMain = panoramaEngine->AccessUIEngine()->CreatePanel(&type, "SkeleMain", root)->panel;
-        panoramaEngine->AccessUIEngine()->RunScript(root, jsCode, "panorama/layout/base.xml", 8, 10, false);
+		auto eng = panoramaEngine->AccessUIEngine();
+        cvar->ConsoleDPrintf("Panel symbol: (%s)\n", eng->ResolveSymbol(type));
+        GUI::skeleMain = eng->CreatePanel(&type, "SkeleMain", root)->panel;
+        eng->RunScript(root, jsCode, "panorama/layout/base.xml", 8, 10, false);
         cvar->ConsoleDPrintf("Root ID: %s\n", root->GetID());
         GUI::skeleMain->SetHitTestEnabled( true );
         GUI::skeleMain->SetHitTestEnabledTraverse( true );

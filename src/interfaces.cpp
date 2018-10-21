@@ -110,6 +110,7 @@ void Interfaces::FindInterfaces()
     auto inputFactory = get_module_factory(GetModuleHandleW(L"inputsystem.dll"));
     auto localizeFactory = get_module_factory(GetModuleHandleW(L"localize.dll"));
     auto PanoramaFactory = get_module_factory(GetModuleHandleW(L"panorama.dll"));
+    auto PanoramaUIFactory = get_module_factory(GetModuleHandleW(L"panoramauiclient.dll"));
 
 
     client = get_interface<IBaseClientDLL>(clientFactory, "VClient018");

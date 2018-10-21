@@ -28,16 +28,16 @@ namespace panorama
         virtual double GetCurrentFrameTime(void) = 0;
         virtual void unk0() = 0; // getter
         virtual void unk1() = 0; // setter ^^
-		virtual void unk228() = 0; // idk
+		//virtual void unk228() = 0; // idk
         virtual void CreateTextLayout(char const*,char const*,float,float,panorama::EFontWeight,panorama::EFontStyle,panorama::ETextAlign,bool,bool,int,float,float) = 0;
         virtual void CreateTextLayout(wchar_t const*,char const*,float,float,panorama::EFontWeight,panorama::EFontStyle,panorama::ETextAlign,bool,bool,int,float,float) = 0;
         virtual void FreeTextLayout(panorama::IUITextLayout *) = 0;
         //virtual void unkno() = 0;
-#ifndef WIN32
+//#ifndef WIN32
         virtual void unkno2() = 0;
         virtual void unknown() = 0;// seems like csgo added some of these unk's
-        virtual void unknown1() = 0;//20
-#endif
+        
+//#endif
         virtual void unknown2() = 0;
         virtual void GetSomeFontThing(void) = 0; //similar to function below
         virtual void GetSortedValidFontNames(void) = 0;
@@ -51,8 +51,10 @@ namespace panorama
         virtual void ReloadLayoutFile(panorama::CPanoramaSymbol) = 0;
         virtual void ToggleDebugMode(void) = 0;
         virtual const char* GetConsoleHistory(void) = 0;
+	virtual PanelWrapper* CreatePanel(panorama::CPanoramaSymbol* panelType, char const* id, panorama::IUIPanel* createInThisParent) = 0; // paneltype (ex: Panel, Label), id (ex: <Label id="swag">)      
         virtual PanelWrapper* CreatePanel(void) = 0;
         virtual void PanelDestroyed(panorama::IUIPanel *,panorama::IUIPanel *) = 0;
+	virtual void unknown1() = 0; //20
         virtual bool IsValidPanelPointer(panorama::IUIPanel const*) = 0;
         virtual PanelHandle_t* GetPanelHandle(panorama::IUIPanel const*) = 0;
         virtual IUIPanel* GetPanelPtr(panorama::PanelHandle_t const&) = 0;
@@ -162,12 +164,14 @@ namespace panorama
         virtual bool IsValidPanelEvent(panorama::CPanoramaSymbol,int *) = 0;
         virtual void CreateInputEventFromSymbol(panorama::CPanoramaSymbol,panorama::IUIPanel *,panorama::EPanelEventSource_t,int) = 0;
         virtual void CreateEventFromString(panorama::IUIPanel *,char const*,char const**) = 0;
-        virtual void unk11();
+        //virtual void unk11();
+	//virtual void unk113();
+	//virtual void unk112();
         virtual void RegisterPanelFactoryWithEngine(panorama::CPanoramaSymbol,panorama::CPanel2DFactory *) = 0;
         virtual bool RegisteredPanelType(panorama::CPanoramaSymbol) = 0;
-        virtual PanelWrapper* CreatePanel(panorama::CPanoramaSymbol *panelType,char const* id,panorama::IUIPanel *createInThisParent) = 0; // paneltype (ex: Panel, Label), id (ex: <Label id="swag">)
-        virtual void CreateDebuggerWindow(void) = 0;
+         virtual void CreateDebuggerWindow(void) = 0;
         virtual void CloseDebuggerWindow(void) = 0;
+	virtual void unk11();
         virtual void RegisterScheduledDelegate();// double,CUtlDelegate<void ()(void)> ) = 0;
         virtual void CancelScheduledDelegate(int) = 0;
         virtual float GetLastScheduledDelegateRunTime(void) = 0;

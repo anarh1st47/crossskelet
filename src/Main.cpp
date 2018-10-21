@@ -23,21 +23,21 @@ void MainThread()
 	//Hooker::FindOverridePostProcessingDisable();
 	Hooker::FindPanelArrayOffset();
 
-	if (!Settings::RegisterConVars())
+	/*if (!Settings::RegisterConVars())
 	{
 	    cvar->ConsoleDPrintf("Error making Custom ConVars! Stopping...\n");
 	    return;
 	}
-	cvar->ConsoleDPrintf("sensitivity @ %p\n", (void*)cvar->FindVar("sensitivity"));
+	cvar->ConsoleDPrintf("sensitivity @ %p\n", (void*)cvar->FindVar("sensitivity"));*/
 
-	clientVMT->HookVM( Hooks::FrameStageNotify, 37 );
-	clientVMT->ApplyVMT();
+	//clientVMT->HookVM( Hooks::FrameStageNotify, 37 );
+	//clientVMT->ApplyVMT();
 
     //clientModeVMT->HookVM( Hooks::ShouldDrawFog, 18 );
     //clientModeVMT->ApplyVMT();
 
-    engineVGuiVMT->HookVM( Hooks::Paint, 41 );
-    engineVGuiVMT->ApplyVMT();
+    //engineVGuiVMT->HookVM( Hooks::Paint, 41 );
+    //engineVGuiVMT->ApplyVMT();
 
     inputInternalVMT->HookVM(Hooks::SetKeyCodeState, (int)Indexes::SetKeyCodeState);
     inputInternalVMT->ApplyVMT();
