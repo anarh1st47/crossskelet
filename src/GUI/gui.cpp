@@ -130,7 +130,10 @@ static void SetupAndCheckPanels()
         panorama::CPanoramaSymbol type = panoramaEngine->AccessUIEngine()->MakeSymbol("Panel");
 		auto eng = panoramaEngine->AccessUIEngine();
         cvar->ConsoleDPrintf("Panel symbol: (%s)\n", eng->ResolveSymbol(type));
-        GUI::skeleMain = eng->CreatePanel(&type, "SkeleMain", root)->panel;
+        //GUI::skeleMain = eng->CreatePanel(&type, "SkeleMain", root)->panel;
+		//typedef panorama::PanelWrapper* (__thiscall *oCreatePanel)(void*, panorama::CPanoramaSymbol* panelType, char const* id, panorama::IUIPanel* createInThisParent);
+		//GUI::skeleMain = getvfunc<oCreatePanel>(eng, 146)(eng, &type, "SkeleMain", root)->panel;
+		GUI::skeleMain = eng->CreatePanel(&type, "SkeleMain", root)->panel;
         eng->RunScript(root, jsCode, "panorama/layout/base.xml", 8, 10, false);
         cvar->ConsoleDPrintf("Root ID: %s\n", root->GetID());
         GUI::skeleMain->SetHitTestEnabled( true );
