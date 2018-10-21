@@ -21,19 +21,26 @@ void MainThread()
 	//Hooker::FindLoadFromBuffer();
 	//Hooker::FindVstdlibFunctions();
 	//Hooker::FindOverridePostProcessingDisable();
-	//Hooker::FindPanelArrayOffset();
+	Hooker::FindPanelArrayOffset();
+
+	if (!Settings::RegisterConVars())
+	{
+	    cvar->ConsoleDPrintf("Error making Custom ConVars! Stopping...\n");
+	    return;
+	}
+	cvar->ConsoleDPrintf("sensitivity @ %p\n", (void*)cvar->FindVar("sensitivity"));
 
 	clientVMT->HookVM( Hooks::FrameStageNotify, 37 );
 	clientVMT->ApplyVMT();
 
-    clientModeVMT->HookVM( Hooks::ShouldDrawFog, 15 );
-    clientModeVMT->ApplyVMT();
+    //clientModeVMT->HookVM( Hooks::ShouldDrawFog, 18 );
+    //clientModeVMT->ApplyVMT();
 
     engineVGuiVMT->HookVM( Hooks::Paint, 41 );
     engineVGuiVMT->ApplyVMT();
 
-    //inputInternalVMT->HookVM( Hooks::SetKeyCodeState, 92 );
-    //inputInternalVMT->ApplyVMT();
+    inputInternalVMT->HookVM(Hooks::SetKeyCodeState, (int)Indexes::SetKeyCodeState);
+    inputInternalVMT->ApplyVMT();
 
     //launcherMgrVMT->ApplyVMT();
 
@@ -51,11 +58,6 @@ void MainThread()
 	srand(time(NULL)); // Seed random # Generator so we can call rand() later
 
     cvar->ConsoleColorPrintf( ColorRGBA(0, 225, 0), "\nskeletux Successfully loaded.\n" );
-
-    Util::RegisterConVar( "skele_disable_pp", "0", 136, NULL, 0.0f, 0, ConVarType_t::INTEGER );
-	Util::RegisterConVar( "skele_disable_fog", "0", 136, NULL, 0.0f, 0, ConVarType_t::INTEGER );
-    Util::RegisterConVar( "skele_skybox_enabled", "0", 136, NULL, 0.0f, 0, ConVarType_t::INTEGER );
-    Util::RegisterConVar( "skele_skybox_name", "vietnam", 136, NULL, 0.0f, 0, ConVarType_t::STRING );
 
 }
 #ifndef WIN32

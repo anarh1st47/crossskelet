@@ -3,9 +3,9 @@
 using ShouldDrawFogFn = bool(__thiscall*)(void*);
 
 bool NoFog::ShouldDrawFog( void *thisptr ) {
-    ConVar *var = cvar->FindVar( "skele_disable_fog" );
-    if( !var || !var->GetInt() )
-        return clientModeVMT->GetOriginalMethod<ShouldDrawFogFn>( 15 )( thisptr );
+    bool state = (bool)cvar->FindVar("skele_disable_fog")->GetInt();
+    if (!state)
+        return clientModeVMT->GetOriginalMethod<ShouldDrawFogFn>( 18 )( thisptr );
 
     /* Skybox Fog is separate */
     IMatRenderContext* renderCtx = material->GetRenderContext();

@@ -13,7 +13,9 @@ namespace panorama
     {
     public:
         virtual void DESTROY() = 0; // 0
+#ifndef WIN32
         virtual void DESTROY2() = 0;
+#endif
         virtual void StartupSubsystems(panorama::IUISettings *,void* PlatWindow_t__) = 0;
         virtual void ConCommandInit(void* IConCommandBaseAccessor) = 0;
         virtual void Shutdown(void) = 0;
@@ -26,13 +28,16 @@ namespace panorama
         virtual double GetCurrentFrameTime(void) = 0;
         virtual void unk0() = 0; // getter
         virtual void unk1() = 0; // setter ^^
+		virtual void unk228() = 0; // idk
         virtual void CreateTextLayout(char const*,char const*,float,float,panorama::EFontWeight,panorama::EFontStyle,panorama::ETextAlign,bool,bool,int,float,float) = 0;
         virtual void CreateTextLayout(wchar_t const*,char const*,float,float,panorama::EFontWeight,panorama::EFontStyle,panorama::ETextAlign,bool,bool,int,float,float) = 0;
         virtual void FreeTextLayout(panorama::IUITextLayout *) = 0;
-        virtual void unkno() = 0;
+        //virtual void unkno() = 0;
+#ifndef WIN32
         virtual void unkno2() = 0;
         virtual void unknown() = 0;// seems like csgo added some of these unk's
-        virtual void unknown1() = 0;
+        virtual void unknown1() = 0;//20
+#endif
         virtual void unknown2() = 0;
         virtual void GetSomeFontThing(void) = 0; //similar to function below
         virtual void GetSortedValidFontNames(void) = 0;
@@ -42,7 +47,7 @@ namespace panorama
         virtual IUISettings*  UISettings(void) = 0;
         virtual IUILayoutManager* UILayoutManager(void) = 0;
         virtual IUIFileSystem* UIFileSystem(void) = 0;
-        virtual void RegisterFrameFunc(void (*)(void)) = 0;
+        virtual void RegisterFrameFunc(void (*)(void)) = 0;//30
         virtual void ReloadLayoutFile(panorama::CPanoramaSymbol) = 0;
         virtual void ToggleDebugMode(void) = 0;
         virtual const char* GetConsoleHistory(void) = 0;

@@ -1,7 +1,7 @@
 #include "hooks.h"
 #include "../Hacks/DisablePostProcessing.h"
 
-void Hooks::BeginFrame(void* thisptr, float frameTime)
+void __fastcall Hooks::BeginFrame(void* thisptr, int, float frameTime)
 {
 	DisablePostProcessing::BeginFrame();
 

@@ -1,9 +1,9 @@
 #include "hooks.h"
 
-void Hooks::SetKeyCodeState(void* thisptr, ButtonCode_t code, bool bPressed)
+void __fastcall Hooks::SetKeyCodeState(void* thisptr, int, ButtonCode_t code, bool bPressed)
 {
 	if( !bPressed )
-		return inputInternalVMT->GetOriginalMethod<SetKeyCodeStateFn>(92)(thisptr, code, bPressed);
+	return inputInternalVMT->GetOriginalMethod<SetKeyCodeStateFn>((int)Indexes::SetKeyCodeState)(thisptr, code, bPressed);
 
 	switch( code ){
 		case ButtonCode_t::KEY_INSERT:

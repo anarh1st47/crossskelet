@@ -7,6 +7,11 @@
 #include "../Hacks/NoFog.h"
 
 
+enum class Indexes : int
+{
+    SetKeyCodeState = 91 // linux 92
+};
+
 //typedef void (*FrameStageNotifyFn) (void*, ClientFrameStage_t);
 using FrameStageNotifyFn = void(__thiscall*)(IBaseClientDLL*, ClientFrameStage_t);
 //typedef void (*SetKeyCodeStateFn) (void*, ButtonCode_t, bool);
@@ -22,14 +27,14 @@ using LockCursorFn = void(__thiscall*)(void*);
 namespace Hooks
 {
 	void __stdcall FrameStageNotify(ClientFrameStage_t stage);
-	void SetKeyCodeState(void* thisptr, ButtonCode_t code, bool bPressed);
-	void BeginFrame(void* thisptr, float frameTime);
-	bool ShouldDrawFog(void* thisptr);
+	void __fastcall SetKeyCodeState(void* thisptr, int, ButtonCode_t code, bool bPressed);
+	void __fastcall BeginFrame(void* thisptr, int, float frameTime);
+	bool __fastcall ShouldDrawFog(void* thisptr);
 
-	void LockCursor(void* thisptr);
+	void __fastcall LockCursor(void* thisptr);
 
-	void Paint(void* thisptr, PaintMode_t mode);
-}
+	void __fastcall Paint(void* thisptr, int, PaintMode_t mode);
+	}
 
 namespace CreateMove
 {

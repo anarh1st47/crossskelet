@@ -29,28 +29,36 @@ static inline void escapeQuotes( ) {
     mainXML = result;
 }
 
-static panorama::IUIPanel* GetRoot( bool inGame ){
-    panorama::IUIPanel *panel = panoramaEngine->AccessUIEngine()->GetLastDispatchedEventTargetPanel();
+static panorama::IUIPanel* GetRoot(bool inGame)
+{
+    panorama::IUIPanel* panel = panoramaEngine->AccessUIEngine()->GetLastDispatchedEventTargetPanel();
 
-    if( !panoramaEngine->AccessUIEngine()->IsValidPanelPointer(panel) ){
-        cvar->ConsoleDPrintf("[GUI::GetRoot]Failed to grab Last Event Target Panel!\n");
-        return NULL;
+    if (!panoramaEngine->AccessUIEngine()->IsValidPanelPointer(panel))
+    {
+		cvar->ConsoleDPrintf("[GUI::GetRoot]Failed to grab Last Event Target Panel!\n");
+		return NULL;
     }
-    panorama::IUIPanel *itr = panel;
-    panorama::IUIPanel *ret = nullptr;
-    while( itr && panoramaEngine->AccessUIEngine()->IsValidPanelPointer(itr) ){
-        if( inGame ){
-            if( !strcmp(itr->GetID(), "CSGOHud") ){
-                ret = itr;
-                break;
-            }
-        } else {
-            if( !strcmp(itr->GetID(), "CSGOMainMenu") ){
-                ret = itr;
-                break;
-            }
-        }
-        itr = itr->GetParent();
+    panorama::IUIPanel* itr = panel;
+    panorama::IUIPanel* ret = nullptr;
+    while (itr && panoramaEngine->AccessUIEngine()->IsValidPanelPointer(itr))
+    {
+		if (inGame)
+		{
+			if (!strcmp(itr->GetID(), "CSGOHud"))
+			{
+				ret = itr;
+				break;
+			}
+		}
+		else
+		{
+			if (!strcmp(itr->GetID(), "CSGOMainMenu"))
+			{
+				ret = itr;
+				break;
+			}
+		}
+		itr = itr->GetParent();
     }
     return ret;
 }
@@ -75,7 +83,7 @@ static void SetupAndCheckPanels()
         GUI::hudRoot = panel;
     } else if( !GUI::menuRoot ){
         panorama::IUIPanel* panel = GetRoot( engine->IsInGame() );
-        if( !panoramaEngine->AccessUIEngine()->IsValidPanelPointer( panel ) ){
+        if(!panel || !panoramaEngine->AccessUIEngine()->IsValidPanelPointer( panel ) ){
             cvar->ConsoleDPrintf("Could not get MainMenu Root Panel!\n");
             return;
         }
