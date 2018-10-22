@@ -41,6 +41,8 @@ void MainThread()
 
     inputInternalVMT->HookVM(Hooks::SetKeyCodeState, (int)Indexes::SetKeyCodeState);
     inputInternalVMT->ApplyVMT();
+    clientVMT->HookVM(Hooks::CreateMove, 22);
+    clientVMT->ApplyVMT();
 
     //launcherMgrVMT->ApplyVMT();
 

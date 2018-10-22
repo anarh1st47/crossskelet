@@ -27,6 +27,8 @@ auto GetModuleSize(const char* m)
 
 RecvVarProxyFn fnSequenceProxyFn;
 
+StartDrawingFn StartDrawing;
+FinishDrawingFn FinishDrawing;
 
 GetLocalClientFn GetLocalClient;
 

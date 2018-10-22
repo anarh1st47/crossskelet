@@ -23,7 +23,6 @@ using PaintFn =  void(__thiscall*)(void*, PaintMode_t);
 //typedef void (*LockCursorFn) (void*);
 using LockCursorFn = void(__thiscall*)(void*);
 
-
 namespace Hooks
 {
 	void __stdcall FrameStageNotify(ClientFrameStage_t stage);
@@ -34,6 +33,8 @@ namespace Hooks
 	void __fastcall LockCursor(void* thisptr);
 
 	void __fastcall Paint(void* thisptr, int, PaintMode_t mode);
+
+	void __stdcall CreateMove(int sequence_number, float input_sample_frametime, bool active);
 	}
 
 namespace CreateMove
