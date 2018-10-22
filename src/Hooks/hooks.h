@@ -6,11 +6,12 @@
 #include "../GUI/gui.h"
 #include "../Hacks/NoFog.h"
 
-
 enum class Indexes : int
 {
-    SetKeyCodeState = 91 // linux 92
+    SetKeyCodeState = 91, // linux 92
+	CreateMove = 24 // linux 25
 };
+
 
 //typedef void (*FrameStageNotifyFn) (void*, ClientFrameStage_t);
 using FrameStageNotifyFn = void(__thiscall*)(IBaseClientDLL*, ClientFrameStage_t);
@@ -34,7 +35,8 @@ namespace Hooks
 
 	void __fastcall Paint(void* thisptr, int, PaintMode_t mode);
 
-	void __stdcall CreateMove(int sequence_number, float input_sample_frametime, bool active);
+
+	bool __fastcall CreateMove(void* thisptr, int, float flInputSampleTime, CUserCmd* cmd);
 	}
 
 namespace CreateMove

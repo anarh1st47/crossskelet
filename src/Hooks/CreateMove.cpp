@@ -1,7 +1,7 @@
 #include "hooks.h"
 
-using CreatemoveFn = void(__stdcall*)(int, float, bool);
+using CreatemoveFn = bool(__thiscall*)(void*, float, CUserCmd*);
 
-void __stdcall Hooks::CreateMove(int sequence_number, float input_sample_frametime, bool active) {
-    clientVMT->GetOriginalMethod<CreatemoveFn>(22)(sequence_number, input_sample_frametime, active);
+bool __fastcall Hooks::CreateMove(void* thisptr, int, float flInputSampleTime, CUserCmd* cmd){
+    return clientModeVMT->GetOriginalMethod<CreatemoveFn>((size_t)Indexes::CreateMove)(thisptr, flInputSampleTime, cmd);
 }
