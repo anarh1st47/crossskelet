@@ -37,7 +37,7 @@ std::vector<dlinfo_t> libraries;
 panorama::PanelArray* panelArray;
 
 // taken form aixxe's(Atex?) cstrike-basehook-linux
-bool Hooker::GetLibraryInformation(const char* library, unsigned int* address, size_t* size)
+bool Hooker::GetLibraryInformation(const char* library, uintptr_t* address, size_t* size)
 {
 #ifdef WIN32
 

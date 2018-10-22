@@ -63,7 +63,7 @@ std::uint8_t* PatternFinder::PatternScan(char* module, const char* signature)
 	return bytes;
     };
 
-	unsigned int moduleptr = 0;
+    uintptr_t moduleptr = 0;
     size_t sizeOfImage = 0;
 
     Hooker::GetLibraryInformation(module, &moduleptr, &sizeOfImage);

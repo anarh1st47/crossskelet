@@ -80,6 +80,7 @@ int __attribute__((constructor)) Startup()
 /* Called when un-injecting the library */
 void __attribute__((destructor)) Shutdown()
 {
+#ifdef HUJ
 	cvar->FindVar("cl_mouseenable")->SetValue(1);
 
 	clientVMT->ReleaseVMT();
@@ -107,7 +108,7 @@ void __attribute__((destructor)) Shutdown()
     }
 
     cvar->ConsoleColorPrintf(ColorRGBA(255, 0, 0), "skeletux unloaded successfully.\n");
-
+#endif
 }
 #else
 //dllmain

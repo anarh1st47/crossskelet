@@ -16,6 +16,12 @@
 #include "Utils/util.h"
 #include "Utils/util_sdk.h"
 
+#ifndef WIN32
+#define __thiscall
+#define __stdcall
+#define __fastcall
+#endif
+
 namespace Settings
 {
 
