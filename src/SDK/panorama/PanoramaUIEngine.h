@@ -116,7 +116,7 @@ public:
     virtual void TrackOverlayForApp(unsigned long long, unsigned long long, void*) = 0;
     virtual void DeleteOverlayInstanceForApp(unsigned long long, unsigned long long, void*) = 0;
     virtual void OverlayForApp(unsigned long long, unsigned long long) = 0;
-    virtual void unk5() = 0;
+    
     virtual IUIPanelStyle* AllocPanelStyle(panorama::IUIPanel*, float) = 0;
     virtual void FreePanelStyle(panorama::IUIPanelStyle*) = 0;
     virtual void SetPanelWaitingAsyncDelete(panorama::IUIPanel*) = 0;
@@ -126,7 +126,8 @@ public:
     virtual void MarkLayerToRepaintThreadSafe(unsigned long long) = 0;
     virtual void AddDirectoryChangeWatch(char const*) = 0;
     virtual int GetWheelScrollLines(void) = 0; // default 3
-    virtual int RunScript(panorama::IUIPanel* panel, char const* entireJSCode, char const* pathToXMLContext, int, int, bool alreadyCompiled) = 0;
+    virtual int RunScript(panorama::IUIPanel* panel, char const* entireJSCode, char const* pathToXMLContext, int, int, bool, bool) = 0;
+    virtual void unk5() = 0;
     virtual void ExposeObjectTypeToJavaScript(char const*, CUtlAbstractDelegate&) = 0;
     virtual bool IsObjectTypeExposedToJavaScript(char const*) = 0;
     virtual void ExposeGlobalObjectToJavaScript(char const*, void*, char const*, bool) = 0;
