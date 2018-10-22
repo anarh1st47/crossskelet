@@ -39,7 +39,7 @@ uintptr_t PatternFinder::FindPatternInModule(const char* moduleName, unsigned ch
      *
      * @returns Address of the first occurence
      */
-std::uint8_t* PatternFinder::PatternScan(void* module, const char* signature)
+std::uint8_t* PatternFinder::PatternScan(char* module, const char* signature)
 {
     static auto pattern_to_byte = [](const char* pattern) {
 	auto bytes = std::vector<int>{};
@@ -63,12 +63,13 @@ std::uint8_t* PatternFinder::PatternScan(void* module, const char* signature)
 	return bytes;
     };
 
-    auto dosHeader = (PIMAGE_DOS_HEADER)module;
-    auto ntHeaders = (PIMAGE_NT_HEADERS)((std::uint8_t*)module + dosHeader->e_lfanew);
+	unsigned int moduleptr = 0;
+    size_t sizeOfImage = 0;
 
-    auto sizeOfImage = ntHeaders->OptionalHeader.SizeOfImage;
+    Hooker::GetLibraryInformation(module, &moduleptr, &sizeOfImage);
+
     auto patternBytes = pattern_to_byte(signature);
-    auto scanBytes = reinterpret_cast<std::uint8_t*>(module);
+    auto scanBytes = reinterpret_cast<std::uint8_t*>(moduleptr);
 
     auto s = patternBytes.size();
     auto d = patternBytes.data();

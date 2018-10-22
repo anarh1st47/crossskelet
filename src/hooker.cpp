@@ -36,8 +36,8 @@ std::vector<dlinfo_t> libraries;
 
 panorama::PanelArray* panelArray;
 
-// taken form aixxe's cstrike-basehook-linux
-bool Hooker::GetLibraryInformation(const char* library, uintptr_t* address, size_t* size)
+// taken form aixxe's(Atex?) cstrike-basehook-linux
+bool Hooker::GetLibraryInformation(const char* library, unsigned int* address, size_t* size)
 {
 #ifdef WIN32
 
@@ -123,7 +123,7 @@ bool Hooker::HookRecvProp(const char* className, const char* propertyName, std::
 void Hooker::FindIClientMode()
 {
 #ifdef WIN32
-    clientMode = *(IClientMode**)(PatternFinder::PatternScan(GetModuleHandleA("client_panorama.dll"), "A1 ? ? ? ? 8B 80 ? ? ? ? 5D") + 1);
+    clientMode = *(IClientMode**)(PatternFinder::PatternScan("client_panorama.dll", "A1 ? ? ? ? 8B 80 ? ? ? ? 5D") + 1);
 #else
     uintptr_t hudprocessinput = reinterpret_cast<uintptr_t>(getvtable(client)[10]);
     GetClientModeFn GetClientMode = reinterpret_cast<GetClientModeFn>(GetAbsoluteAddress(hudprocessinput + 11, 1, 5));
@@ -138,7 +138,7 @@ void Hooker::FindGlobalVars()
 {
 
 	#ifdef WIN32
-    globalVars = **(CGlobalVars***)(PatternFinder::PatternScan(GetModuleHandleA("client_panorama.dll"), "A1 ? ? ? ? 5E 8B 40 10") + 1);
+    globalVars = **(CGlobalVars***)(PatternFinder::PatternScan("client_panorama.dll", "A1 ? ? ? ? 5E 8B 40 10") + 1);
 #else
     uintptr_t HudUpdate = reinterpret_cast<uintptr_t>(getvtable(client)[11]);
 
@@ -149,7 +149,7 @@ void Hooker::FindGlobalVars()
 void Hooker::FindCInput()
 {
 #ifdef WIN32
-    input = *(CInput**)(PatternFinder::PatternScan(GetModuleHandleA("client_panorama.dll"), "B9 ? ? ? ? 8B 40 38 FF D0 84 C0 0F 85") + 1);
+    input = *(CInput**)(PatternFinder::PatternScan("client_panorama.dll", "B9 ? ? ? ? 8B 40 38 FF D0 84 C0 0F 85") + 1);
 #else
     uintptr_t IN_ActivateMouse = reinterpret_cast<uintptr_t>(getvtable(client)[16]);
 
@@ -196,7 +196,7 @@ void Hooker::FindViewRender()
 
     viewRender = reinterpret_cast<CViewRender*>(GetAbsoluteAddress(func_address + 50, 3, 7));
 #else
-    viewRender = *(CViewRender**)(PatternFinder::PatternScan(GetModuleHandle("client_panorama.dll"), "A1 ? ? ? ? B9 ? ? ? ? C7 05 ? ? ? ? ? ? ? ? FF 10") + 1);
+    viewRender = *(CViewRender**)(PatternFinder::PatternScan("client_panorama.dll", "A1 ? ? ? ? B9 ? ? ? ? C7 05 ? ? ? ? ? ? ? ? FF 10") + 1);
 #endif
 }
 
