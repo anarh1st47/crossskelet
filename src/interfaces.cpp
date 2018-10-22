@@ -52,93 +52,52 @@ int* nPredictionRandomSeed;
 CMoveData* g_MoveData;
 bool* s_bOverridePostProcessingDisable;
 
-#ifdef WIN32
-CreateInterfaceFn get_module_factory(HMODULE module)
-{
-    return reinterpret_cast<CreateInterfaceFn>(GetProcAddress(module, "CreateInterface"));
-}
-
-template <typename T>
-T* get_interface(CreateInterfaceFn f, const char* szInterfaceVersion)
-{
-    auto result = reinterpret_cast<T*>(f(szInterfaceVersion, nullptr));
-
-    if (!result)
-    {
-	throw std::runtime_error(std::string("[get_interface] Failed to GetOffset interface: ") + szInterfaceVersion);
-    }
-
-    return result;
-}
-#endif
 
 void Interfaces::FindInterfaces()
 {
-#ifndef WIN32
-	client = GetInterface<IBaseClientDLL>("./csgo/bin/linux64/client_panorama_client.so", "VClient");
-	engine = GetInterface<IEngineClient>("./bin/linux64/engine_client.so", "VEngineClient");
-	entityList = GetInterface<IClientEntityList>("./csgo/bin/linux64/client_panorama_client.so", "VClientEntityList");
-	surface = GetInterface<ISurface>("./bin/linux64/vguimatsurface_client.so", "VGUI_Surface");
-	panel = GetInterface<IVPanel>("./bin/linux64/vgui2_client.so", "VGUI_Panel");
-	debugOverlay = GetInterface<IVDebugOverlay>("./bin/linux64/engine_client.so", "VDebugOverlay");
-	modelInfo = GetInterface<IVModelInfo>("./bin/linux64/engine_client.so", "VModelInfoClient");
-	modelRender = GetInterface<IVModelRender>("./bin/linux64/engine_client.so", "VEngineModel");
-	trace = GetInterface<IEngineTrace>("./bin/linux64/engine_client.so", "EngineTraceClient");
-	inputSystem = GetInterface<IInputSystem>("./bin/linux64/inputsystem_client.so", "InputSystemVersion");
-	inputInternal = GetInterface<IInputInternal>("./bin/linux64/vgui2_client.so", "VGUI_InputInternal");
-	material = GetInterface<IMaterialSystem>("./bin/linux64/materialsystem_client.so", "VMaterialSystem");
-	cvar = GetInterface<ICvar>("./bin/linux64/materialsystem_client.so", "VEngineCvar");
-	effects = GetInterface<CEffects>("./bin/linux64/engine_client.so", "VEngineEffects");
-	gameEvents = GetInterface<IGameEventManager2>("./bin/linux64/engine_client.so", "GAMEEVENTSMANAGER002", true);
-	physics = GetInterface<IPhysicsSurfaceProps>("./bin/linux64/vphysics_client.so", "VPhysicsSurfaceProps");
-    prediction = GetInterface<IPrediction>("./csgo/bin/linux64/client_client.so", "VClientPrediction001", true);
-	gameMovement = GetInterface<IGameMovement>("./csgo/bin/linux64/client_panorama_client.so", "GameMovement");
-	engineVGui = GetInterface<IEngineVGui>("./bin/linux64/engine_client.so", "VEngineVGui");
-	sound = GetInterface<IEngineSound>("./bin/linux64/engine_client.so", "IEngineSoundClient");
-	localize = GetInterface<ILocalize>("./bin/linux64/localize_client.so", "Localize_");
-	commandline = GetSymbolAddress<CommandLineFn>("./bin/linux64/libtier0_client.so", "CommandLine")();
-	panoramaEngine = GetInterface<IPanoramaUIEngine>("./bin/linux64/panorama_client.so", "PanoramaUIEngine001", true);
+#ifdef WIN32
+    constexpr char *CLIENT_FILE = "client_panorama.dll", *ENGINE_FILE = "engine.dll", *VSTD_FILE = "vstdlib.dll",
+		*VGUI_FILE = "vguimatsurface.dll", *VGUI2_FILE = "vgui2.dll", *MATSYS_FILE = "materialsystem.dll", 
+		*DATACACHE_FILE = "datacache.dll", *VPHYS_FILE = "vphysics.dll", *INSYS_FILE = "inputsystem.dll",
+		*LOCALIZE_FILE = "localize.dll", *PANORAMA_FILE = "panorama.dll";
 #else
-    auto engineFactory = get_module_factory(GetModuleHandleW(L"engine.dll"));
-    auto clientFactory = get_module_factory(GetModuleHandleW(L"client_panorama.dll"));
-    auto valveStdFactory = get_module_factory(GetModuleHandleW(L"vstdlib.dll"));
-    auto vguiFactory = get_module_factory(GetModuleHandleW(L"vguimatsurface.dll"));
-    auto vgui2Factory = get_module_factory(GetModuleHandleW(L"vgui2.dll"));
-    auto matSysFactory = get_module_factory(GetModuleHandleW(L"materialsystem.dll"));
-    auto dataCacheFactory = get_module_factory(GetModuleHandleW(L"datacache.dll"));
-    auto vphysicsFactory = get_module_factory(GetModuleHandleW(L"vphysics.dll"));
-    auto inputFactory = get_module_factory(GetModuleHandleW(L"inputsystem.dll"));
-    auto localizeFactory = get_module_factory(GetModuleHandleW(L"localize.dll"));
-    auto PanoramaFactory = get_module_factory(GetModuleHandleW(L"panorama.dll"));
-    auto PanoramaUIFactory = get_module_factory(GetModuleHandleW(L"panoramauiclient.dll"));
-
-
-    client = get_interface<IBaseClientDLL>(clientFactory, "VClient018");
-    engine = get_interface<IEngineClient>(engineFactory, "VEngineClient014");
-    entityList = get_interface<IClientEntityList>(clientFactory, "VClientEntityList003");
-    surface = get_interface<ISurface>(vguiFactory, "VGUI_Surface031");
-    panel = get_interface<IVPanel>(vgui2Factory, "VGUI_Panel009");
-    debugOverlay = get_interface<IVDebugOverlay>(engineFactory, "VDebugOverlay004");
-    modelInfo = get_interface<IVModelInfo>(engineFactory, "VModelInfoClient004");
-    modelRender = get_interface<IVModelRender>(engineFactory, "VEngineModel016");
-    trace = get_interface<IEngineTrace>(engineFactory, "EngineTraceClient004");
-    inputSystem = get_interface<IInputSystem>(inputFactory, "InputSystemVersion001");
-    inputInternal = get_interface<IInputInternal>(vgui2Factory, "VGUI_InputInternal001");
-    material = get_interface<IMaterialSystem>(matSysFactory, "VMaterialSystem080");
-    cvar = get_interface<ICvar>(valveStdFactory, "VEngineCvar007");
-    effects = GetInterface<CEffects>("./bin/linux64/engine_client.so", "VEngineEffects");
-	gameEvents = get_interface<IGameEventManager2>(engineFactory, "GAMEEVENTSMANAGER002");
-    physics = get_interface<IPhysicsSurfaceProps>(vphysicsFactory, "VPhysicsSurfaceProps001");
-    prediction = get_interface<IPrediction>(clientFactory, "VClientPrediction001");
-    gameMovement = get_interface<IGameMovement>(clientFactory, "GameMovement001");
-    engineVGui = get_interface<IEngineVGui>(engineFactory, "VEngineVGui001");
-    sound = get_interface<IEngineSound>(engineFactory, "IEngineSoundClient003");
-    localize = get_interface<ILocalize>(localizeFactory, "Localize_001");
-    //commandline = GetSymbolAddress<CommandLineFn>("./bin/linux64/libtier0_client.so", "CommandLine")();
-    panoramaEngine = get_interface<IPanoramaUIEngine>(PanoramaFactory, "PanoramaUIEngine001");
-
-    
+    constexpr char 
+		*CLIENT_FILE = "./csgo/bin/linux64/client_panorama_client.so",
+		*ENGINE_FILE = "./bin/linux64/engine_client.so", 
+		*VSTD_FILE = "vstdlib.dll",
+		*VGUI_FILE = "./bin/linux64/vguimatsurface_client.so",
+		*VGUI2_FILE = "./bin/linux64/vgui2_client.so",
+		*MATSYS_FILE = "./bin/linux64/materialsystem_client.so",
+		*DATACACHE_FILE = "datacache.dll", 
+		*VPHYS_FILE = "./bin/linux64/vphysics_client.so", 
+		*INSYS_FILE = "./bin/linux64/inputsystem_client.so",
+		*LOCALIZE_FILE = "./bin/linux64/localize_client.so", 
+		*PANORAMA_FILE = "./bin/linux64/panorama_client.so";
 #endif
+	client = GetInterface<IBaseClientDLL>(CLIENT_FILE, "VClient018");
+	engine = GetInterface<IEngineClient>(ENGINE_FILE, "VEngineClient014");
+	entityList = GetInterface<IClientEntityList>(CLIENT_FILE, "VClientEntityList003");
+	surface = GetInterface<ISurface>(VGUI_FILE, "VGUI_Surface031");
+	panel = GetInterface<IVPanel>(VGUI2_FILE, "VGUI_Panel009");
+	debugOverlay = GetInterface<IVDebugOverlay>(ENGINE_FILE, "VDebugOverlay004");
+	modelInfo = GetInterface<IVModelInfo>(ENGINE_FILE, "VModelInfoClient004");
+	modelRender = GetInterface<IVModelRender>(ENGINE_FILE, "VEngineModel016");
+	trace = GetInterface<IEngineTrace>(ENGINE_FILE, "EngineTraceClient004");
+	inputSystem = GetInterface<IInputSystem>(INSYS_FILE, "InputSystemVersion001");
+	inputInternal = GetInterface<IInputInternal>(VGUI2_FILE, "VGUI_InputInternal001");
+	material = GetInterface<IMaterialSystem>(MATSYS_FILE, "VMaterialSystem080");
+	cvar = GetInterface<ICvar>(MATSYS_FILE, "VEngineCvar007");
+	//effects = GetInterface<CEffects>(ENGINE_FILE, "VEngineEffects");// ?????????
+	gameEvents = GetInterface<IGameEventManager2>(ENGINE_FILE, "GAMEEVENTSMANAGER002");
+	physics = GetInterface<IPhysicsSurfaceProps>(VPHYS_FILE, "VPhysicsSurfaceProps001");
+    //prediction = GetInterface<IPrediction>("./csgo/bin/linux64/client_client.so", "VClientPrediction001"); //???????????
+	gameMovement = GetInterface<IGameMovement>(CLIENT_FILE, "GameMovement001");
+	engineVGui = GetInterface<IEngineVGui>(ENGINE_FILE, "VEngineVGui001");
+	sound = GetInterface<IEngineSound>(ENGINE_FILE, "IEngineSoundClient003");
+	localize = GetInterface<ILocalize>(LOCALIZE_FILE, "Localize_001");
+	//commandline = GetSymbolAddress<CommandLineFn>("./bin/linux64/libtier0_client.so", "CommandLine")();
+	panoramaEngine = GetInterface<IPanoramaUIEngine>(PANORAMA_FILE, "PanoramaUIEngine001");
+
 }
 
 void Interfaces::DumpInterfaces()

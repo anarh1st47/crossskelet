@@ -9,22 +9,22 @@ private:
 	uintptr_t* vmt;
 public:
 	// New virtual method table
-	uintptr_t** interface = nullptr;
+	uintptr_t** _interface = nullptr;
 
 	uintptr_t* original_vmt = nullptr;
 
 	uint32_t methodCount = 0;
 
-	VMT(void* interface)
+	VMT(void* _interface)
 	{
-		this->interface = reinterpret_cast<uintptr_t**>(interface);
+		this->_interface = reinterpret_cast<uintptr_t**>(_interface);
 
 		size_t method_count = 0;
 
-		while (reinterpret_cast<uintptr_t*>(*this->interface)[method_count])
+		while (reinterpret_cast<uintptr_t*>(*this->_interface)[method_count])
 			method_count++;
 
-		original_vmt = *this->interface;
+		original_vmt = *this->_interface;
 
 		vmt = new uintptr_t[sizeof(uintptr_t) * method_count];
 
@@ -46,11 +46,11 @@ public:
 
 	void ApplyVMT()
 	{
-		*this->interface = vmt;
+		*this->_interface = vmt;
 	}
 
 	void ReleaseVMT()
 	{
-		*this->interface = original_vmt;
+		*this->_interface = original_vmt;
 	}
 };
