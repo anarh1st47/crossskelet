@@ -261,4 +261,4 @@ namespace Offsets
 void GetOffsets();
 }
 
-extern COffsets offsets;
+inline COffsets offsets;

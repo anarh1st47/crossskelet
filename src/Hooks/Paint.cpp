@@ -1,7 +1,7 @@
 #include "hooks.h"
 
-extern StartDrawingFn StartDrawing;
-extern FinishDrawingFn FinishDrawing;
+inline StartDrawingFn StartDrawing;
+inline FinishDrawingFn FinishDrawing;
 
 void __fastcall Hooks::Paint(void* thisptr, int, PaintMode_t mode)
 {

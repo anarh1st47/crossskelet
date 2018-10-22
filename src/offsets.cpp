@@ -1,8 +1,6 @@
 #include "offsets.h"
 #include "Utils/netvarmanager.h"
 
-COffsets offsets;
-
 void Offsets::GetOffsets()
 {
 	std::vector<RecvTable *> tables = NetVarManager::GetTables();
