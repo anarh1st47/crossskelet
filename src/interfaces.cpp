@@ -1,58 +1,5 @@
 #include "interfaces.h"
 
-
-
-IBaseClientDLL* client;
-ISurface* surface;
-IVPanel* panel;
-IEngineClient* engine;
-IClientEntityList* entityList;
-IVDebugOverlay* debugOverlay;
-IVModelInfo* modelInfo;
-IVModelRender* modelRender;
-IClientMode* clientMode;
-IEngineTrace* trace;
-IInputSystem* inputSystem;
-IInputInternal* inputInternal;
-IMaterialSystem* material;
-ICvar* cvar;
-CGlobalVars* globalVars;
-CEffects* effects;
-IGameEventManager2* gameEvents;
-IPhysicsSurfaceProps* physics;
-CViewRender* viewRender;
-IPrediction* prediction;
-IGameMovement* gameMovement;
-IMoveHelper* moveHelper;
-ILauncherMgr* launcherMgr;
-C_CSPlayerResource** csPlayerResource;
-C_CSGameRules** csGameRules;
-IEngineVGui* engineVGui;
-IEngineSound* sound;
-ILocalize* localize;
-ICommandLine* commandline;
-CInput* input;
-IPanoramaUIEngine* panoramaEngine;
-
-VMT* panelVMT;
-VMT* clientVMT;
-VMT* clientModeVMT;
-VMT* inputInternalVMT;
-VMT* materialVMT;
-VMT* surfaceVMT;
-VMT* launcherMgrVMT;
-VMT* engineVGuiVMT;
-
-InitKeyValuesFn InitKeyValues;
-LoadFromBufferFn LoadFromBuffer;
-
-SetNamedSkyBoxFn SetNamedSkyBox;
-
-int* nPredictionRandomSeed;
-CMoveData* g_MoveData;
-bool* s_bOverridePostProcessingDisable;
-
-
 void Interfaces::FindInterfaces()
 {
 #ifdef WIN32

@@ -1,70 +1,64 @@
 #pragma once
 
-#include <set>
 #include <fstream>
+#include <set>
 
 #include "SDK/SDK.h"
-#include "Utils/vmt.h"
 #include "Utils/util.h"
+#include "Utils/vmt.h"
 
-#ifdef WIN32
-#include <Windows.h>
-#endif
+inline IBaseClientDLL* client;
+inline ISurface* surface;
+inline IVPanel* panel;
+inline IEngineClient* engine;
+inline IClientEntityList* entityList;
+inline IVDebugOverlay* debugOverlay;
+inline IVModelInfo* modelInfo;
+inline IVModelRender* modelRender;
+inline IClientMode* clientMode;
+inline IEngineTrace* trace;
+inline IInputSystem* inputSystem;
+inline IInputInternal* inputInternal;
+inline IMaterialSystem* material;
+inline ICvar* cvar;
+inline CGlobalVars* globalVars;
+inline CEffects* effects;
+inline IGameEventManager2* gameEvents;
+inline IPhysicsSurfaceProps* physics;
+inline CViewRender* viewRender;
+inline IPrediction* prediction;
+inline IGameMovement* gameMovement;
+inline IMoveHelper* moveHelper;
+inline ILauncherMgr* launcherMgr;
+inline C_CSPlayerResource** csPlayerResource;
+inline C_CSGameRules** csGameRules;
+inline IEngineVGui* engineVGui;
+inline IEngineSound* sound;
+inline ILocalize* localize;
+inline ICommandLine* commandline;
+inline CInput* input;
+inline IPanoramaUIEngine* panoramaEngine;
 
+inline VMT* panelVMT;
+inline VMT* clientVMT;
+inline VMT* clientModeVMT;
+inline VMT* inputInternalVMT;
+inline VMT* materialVMT;
+inline VMT* surfaceVMT;
+inline VMT* launcherMgrVMT;
+inline VMT* engineVGuiVMT;
 
+inline InitKeyValuesFn InitKeyValues;
+inline LoadFromBufferFn LoadFromBuffer;
 
-extern IBaseClientDLL* client;
-extern ISurface* surface;
-extern IVPanel* panel;
-extern IEngineClient* engine;
-extern IClientEntityList* entityList;
-extern IVDebugOverlay* debugOverlay;
-extern IVModelInfo* modelInfo;
-extern IVModelRender* modelRender;
-extern IClientMode* clientMode;
-extern IEngineTrace* trace;
-extern IInputSystem* inputSystem;
-extern IInputInternal* inputInternal;
-extern IMaterialSystem* material;
-extern ICvar* cvar;
-extern CGlobalVars* globalVars;
-extern CEffects* effects;
-extern IGameEventManager2* gameEvents;
-extern IPhysicsSurfaceProps* physics;
-extern CViewRender* viewRender;
-extern IPrediction* prediction;
-extern IGameMovement* gameMovement;
-extern IMoveHelper* moveHelper;
-extern ILauncherMgr* launcherMgr;
-extern C_CSPlayerResource** csPlayerResource;
-extern C_CSGameRules** csGameRules;
-extern IEngineVGui* engineVGui;
-extern IEngineSound* sound;
-extern ILocalize* localize;
-extern ICommandLine* commandline;
-extern CInput* input;
-extern IPanoramaUIEngine* panoramaEngine;
+inline SetNamedSkyBoxFn SetNamedSkyBox;
 
-extern VMT* panelVMT;
-extern VMT* clientVMT;
-extern VMT* clientModeVMT;
-extern VMT* inputInternalVMT;
-extern VMT* materialVMT;
-extern VMT* surfaceVMT;
-extern VMT* launcherMgrVMT;
-extern VMT* engineVGuiVMT;
-
-extern InitKeyValuesFn InitKeyValues;
-extern LoadFromBufferFn LoadFromBuffer;
-
-extern SetNamedSkyBoxFn SetNamedSkyBox;
-
-extern int* nPredictionRandomSeed;
-extern CMoveData* g_MoveData;
-extern bool* s_bOverridePostProcessingDisable;
+inline int* nPredictionRandomSeed;
+inline CMoveData* g_MoveData;
+inline bool* s_bOverridePostProcessingDisable;
 
 namespace Interfaces
 {
-	void FindInterfaces();
-	void DumpInterfaces();
+void FindInterfaces();
+void DumpInterfaces();
 }
