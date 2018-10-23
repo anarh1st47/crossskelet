@@ -8,9 +8,16 @@
 
 enum class Indexes : int
 {
+#ifdef WIN32
     SetKeyCodeState = 91, // linux 92
 	CreateMove = 24, // linux 25
 	PanelTraverse = 41 // linux 42
+#else
+    SetKeyCodeState = 92,
+    CreateMove = 25,
+    PanelTraverse = 42
+#endif
+
 };
 
 
