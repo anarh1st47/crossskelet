@@ -51,6 +51,7 @@ void Draw::FilledRectangle(int x0, int y0, int x1, int y1, Color col)
 {
 	surface->DrawSetColor(col);
 	surface->DrawFilledRect(x0, y0, x1, y1);
+	//getvfunc<void(__thiscall*)(void*, int, int, int, int)>(surface, 16)(surface, x0, y0, x1, y1);
 }
 
 void Draw::FilledRectangle(Vector2D start_pos, Vector2D end_pos, Color col)

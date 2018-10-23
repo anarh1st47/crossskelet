@@ -27,13 +27,13 @@ typedef Vertex_t FontVertex_t;
 class ISurface : public IAppSystem
 {
 public:
-    //virtual void RunFrame() = 0;
+    virtual void RunFrame() = 0; 
     virtual VPANEL GetEmbeddedPanel() = 0;//10
     virtual void SetEmbeddedPanel(VPANEL pPanel) = 0;
     virtual void PushMakeCurrent(VPANEL panel, bool useInsets) = 0;
     virtual void PopMakeCurrent(VPANEL panel) = 0;
-    virtual void DrawSetColor(int r, int g, int b, int a) = 0;
     virtual void DrawSetColor(Color col) = 0;
+    virtual void DrawSetColor(int r, int g, int b, int a) = 0;
     virtual void DrawFilledRect(int x0, int y0, int x1, int y1) = 0;
     virtual void DrawFilledRectArray(void* pRects, int numRects) = 0;
     virtual void DrawOutlinedRect(int x0, int y0, int x1, int y1) = 0;
@@ -53,7 +53,6 @@ public:
     virtual void PaintHTMLWindow(void* htmlwin) = 0;
     virtual void DeleteHTMLWindow(void* htmlwin) = 0;
     virtual int DrawGetTextureId(char const* filename) = 0;
-    virtual void RunFrame() = 0;
     virtual bool DrawGetTextureFile(int id, char* filename, int maxlen) = 0;
     virtual void DrawSetTextureFile(int id, const char* filename, int hardwareFilter, bool forceReload) = 0;
     virtual void DrawSetTextureRGBA(int id, const unsigned char* rgba, int wide, int tall) = 0;

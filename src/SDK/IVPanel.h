@@ -1,11 +1,18 @@
 #pragma once
+const int GETNAMEVPANELINDEX = 
+#ifdef WIN32
+36
+#else
+37
+#endif
+;
 
 class IVPanel
 {
 public:
 	const char *GetName(VPANEL vguiPanel)
 	{
-		typedef const char* (* oGetName)(void*, VPANEL);
-		return getvfunc<oGetName>(this, 37)(this, vguiPanel);
+	    typedef const char*(__thiscall * oGetName)(void*, VPANEL);
+	    return getvfunc<oGetName>(this, GETNAMEVPANELINDEX)(this, vguiPanel);
 	}
 };
