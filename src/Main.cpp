@@ -46,7 +46,8 @@ void MainThread()
     clientModeVMT->HookVM((void*)Hooks::CreateMove, (int)Indexes::CreateMove);
     clientModeVMT->ApplyVMT();
 
-
+	panelVMT->HookVM((void*)Hooks::PaintTraverse, (int)Indexes::PanelTraverse);
+    panelVMT->ApplyVMT();
     //launcherMgrVMT->ApplyVMT();
 
 	//materialVMT->HookVM( Hooks::BeginFrame, 42 );

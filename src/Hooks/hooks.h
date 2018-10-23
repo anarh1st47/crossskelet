@@ -9,7 +9,8 @@
 enum class Indexes : int
 {
     SetKeyCodeState = 91, // linux 92
-	CreateMove = 24 // linux 25
+	CreateMove = 24, // linux 25
+	PanelTraverse = 41 // linux 42
 };
 
 
@@ -37,6 +38,7 @@ namespace Hooks
 
 
 	bool __fastcall CreateMove(void* thisptr, int, float flInputSampleTime, CUserCmd* cmd);
+	void __stdcall PaintTraverse(VPANEL p, bool forceRepaint, bool allowForce);
 	}
 
 namespace CreateMove
