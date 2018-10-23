@@ -7,6 +7,10 @@ const int GETNAMEVPANELINDEX =
 #endif
 ;
 
+#ifndef WIN32
+#define __thiscall
+#endif
+
 class IVPanel
 {
 public:

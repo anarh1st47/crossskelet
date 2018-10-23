@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef WIN32
+#define __thiscall
+#endif
+
 #define FCVAR_NONE 0
 
 #define FCVAR_UNREGISTERED (1 << 0)
