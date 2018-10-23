@@ -42,8 +42,8 @@ public:
     virtual void DrawSetApparentDepth(float f) = 0;
     virtual void DrawClearApparentDepth(void) = 0;
     virtual void DrawSetTextFont(HFont font) = 0;
-    virtual void DrawSetTextColor(int r, int g, int b, int a) = 0;
     virtual void DrawSetTextColor(Color col) = 0;
+    virtual void DrawSetTextColor(int r, int g, int b, int a) = 0;
     virtual void DrawSetTextPos(int x, int y) = 0;
     virtual void DrawGetTextPos(int& x, int& y) = 0;
     virtual void DrawPrintText(const wchar_t* text, int textLen, int drawType = 0) = 0;

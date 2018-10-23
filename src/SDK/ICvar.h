@@ -34,6 +34,10 @@
 #define FCVAR_SERVER_CANNOT_QUERY (1 << 29)
 #define FCVAR_CLIENTCMD_CAN_EXECUTE (1 << 30)
 
+#ifndef WIN32
+#define __thiscall
+#endif
+
 // Not really ideal but there's already a Color struct used by the GUI.
 struct ColorRGBA
 {

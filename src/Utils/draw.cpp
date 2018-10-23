@@ -164,7 +164,7 @@ Vector2D Draw::GetTextSize(const char* text, HFont font)
 	return Vector2D(x_res, y_res);
 }
 
-HFont Draw::CreateFont(const char* fontName, int size, int flag)
+HFont Draw::CreateFontt(const char* fontName, int size, int flag)
 {
 	HFont newFont = surface->CreateFontt();
 	surface->SetFontGlyphSet(newFont, fontName, size, 0, 0, 0, flag);
