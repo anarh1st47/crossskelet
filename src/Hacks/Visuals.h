@@ -4,5 +4,6 @@
 
 
 namespace Visuals {
+	inline HFont pFont;
 	void PaintTraverse();
 };
