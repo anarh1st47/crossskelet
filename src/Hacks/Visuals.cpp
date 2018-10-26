@@ -10,7 +10,7 @@ void Visuals::PaintTraverse() {
 
 		auto client = ent->GetClientClass();
 
-		if (client->m_ClassID != EClassIds::CChicken)
+		if (client->m_ClassID != EClassIds::CBasePlayer)
 		    continue;
 		
 		auto player = reinterpret_cast<C_BasePlayer*>(ent);
