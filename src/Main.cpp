@@ -21,7 +21,7 @@ void MainThread()
 	//Hooker::FindLoadFromBuffer();
 	//Hooker::FindVstdlibFunctions();
 	//Hooker::FindOverridePostProcessingDisable();
-	Hooker::FindPanelArrayOffset();
+	//Hooker::FindPanelArrayOffset();
 
 	/*if (!Settings::RegisterConVars())
 	{
@@ -43,8 +43,8 @@ void MainThread()
     inputInternalVMT->ApplyVMT();
     //clientVMT->HookVM(Hooks::CreateMove, 22);
     //clientVMT->ApplyVMT();
-    clientModeVMT->HookVM((void*)Hooks::CreateMove, (int)Indexes::CreateMove);
-    clientModeVMT->ApplyVMT();
+    //clientModeVMT->HookVM((void*)Hooks::CreateMove, (int)Indexes::CreateMove);
+    //clientModeVMT->ApplyVMT();
 
 	panelVMT->HookVM((void*)Hooks::PaintTraverse, (int)Indexes::PanelTraverse);
     panelVMT->ApplyVMT();
@@ -57,13 +57,13 @@ void MainThread()
 	//surfaceVMT->ApplyVMT();
 
 	//NetVarManager::DumpNetvars();
-	Offsets::GetOffsets();
+	//Offsets::GetOffsets();
 
 	//Settings::LoadSettings();
 
 	srand(time(NULL)); // Seed random # Generator so we can call rand() later
 
-    cvar->ConsoleColorPrintf( ColorRGBA(0, 225, 0), "\nskeletux Successfully loaded.\n" );
+    //cvar->ConsoleColorPrintf( ColorRGBA(0, 225, 0), "\nskeletux Successfully loaded.\n" );
 
 }
 #ifndef WIN32

@@ -45,7 +45,7 @@ namespace Hooks
 
 
 	bool __fastcall CreateMove(void* thisptr, int, float flInputSampleTime, CUserCmd* cmd);
-	void __stdcall PaintTraverse(VPANEL p, bool forceRepaint, bool allowForce);
+	void __thiscall PaintTraverse(void*, VPANEL p, bool forceRepaint, bool allowForce);
 	}
 
 namespace CreateMove
