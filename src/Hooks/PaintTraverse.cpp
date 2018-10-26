@@ -19,6 +19,6 @@ void __thiscall Hooks::PaintTraverse(void* t, VPANEL p, bool forceRepaint, bool 
 		if (!Visuals::pFont)
 			Visuals::pFont = Draw::CreateFontt("tahoma", 15);
 		Visuals::PaintTraverse();
-		Draw::Text(100, 100, "CrossSkelet", Visuals::pFont, Color(255, 0, 0, 255));
+		Draw::Text(10, 10, "CrossSkelet", Visuals::pFont, Color(255, 0, 0, 255));
 	}
 }

@@ -25,14 +25,14 @@ public:
     virtual double GetCurrentFrameTime(void) = 0;
     virtual void unk0() = 0; // getter
     virtual void unk1() = 0; // setter ^^
+    virtual void INT3_WRAPPER() = 0;
+    virtual void INT3_WRAPPER2() = 0;
+    virtual void INT3_WRAPPER3() = 0; // probably windows specific
+    virtual void INT3_WRAPPER4() = 0;
+    virtual void INT3_WRAPPER5() = 0;
     virtual void CreateTextLayout(char const*, char const*, float, float, panorama::EFontWeight, panorama::EFontStyle, panorama::ETextAlign, bool, bool, int, float, float) = 0;
     virtual void CreateTextLayout(wchar_t const*, char const*, float, float, panorama::EFontWeight, panorama::EFontStyle, panorama::ETextAlign, bool, bool, int, float, float) = 0;
     virtual void FreeTextLayout(panorama::IUITextLayout*) = 0;
-    //virtual void unkno() = 0;
-    virtual void unkno2() = 0;
-    virtual void unknown() = 0; // seems like csgo added some of these unk's
-    virtual void unknown1() = 0;
-    virtual void unknown2() = 0;//20
     virtual void GetSomeFontThing(void) = 0; //similar to function below
     virtual void GetSortedValidFontNames(void) = 0;
     virtual IUIInputEngine* UIInputEngine(void) = 0;
@@ -142,8 +142,8 @@ public:
     virtual void Grabber4(void) = 0; // returns offset in class.
     virtual void UIStyleFactory(void) = 0;
     virtual void GetV8Isolate(void) = 0;
-    virtual void unknow() = 0;
-    virtual void unknow2() = 0;
+    virtual void RunFunction() = 0;
+    virtual void RunFunction2() = 0;//args
     virtual void CreateV8PanelInstance(panorama::IUIPanel*) = 0;
     virtual void CreateV8PanelStyleInstance(panorama::IUIPanelStyle*) = 0;
     virtual void CreateV8ObjectInstance(char const*, void*, panorama::IUIJSObject*) = 0;
@@ -160,7 +160,7 @@ public:
     virtual void unk11();
     virtual void RegisterPanelFactoryWithEngine(panorama::CPanoramaSymbol, panorama::CPanel2DFactory*) = 0;
     virtual bool RegisteredPanelType(panorama::CPanoramaSymbol) = 0;
-    virtual PanelWrapper* CreatePanel(panorama::CPanoramaSymbol* panelType, char const* id, panorama::IUIPanel* createInThisParent) = 0; // paneltype (ex: Panel, Label), id (ex: <Label id="swag">)
+    virtual PanelWrapper* CreatePanel(panorama::CPanoramaSymbol panelType, char const* id, panorama::IUIPanel* createInThisParent) = 0; // paneltype (ex: Panel, Label), id (ex: <Label id="swag">)
     virtual void CreateDebuggerWindow(void) = 0;
     virtual void CloseDebuggerWindow(void) = 0;
     virtual void RegisterScheduledDelegate(); // double,CUtlDelegate<void ()(void)> ) = 0;
@@ -195,13 +195,6 @@ public:
     virtual void OnFileCacheRemoved(panorama::CPanoramaSymbol) = 0;
     virtual void RunPlatformFrame(void) = 0;
     virtual void CreateSoundSystem(void) = 0;
-    virtual void unk12();
-    virtual void unk13();
-    virtual void unk14();
-    virtual void unk15();
-    virtual void unk16();
-    virtual void unk17();
-    virtual void unk18();
 };
 #else
     class UIEngine

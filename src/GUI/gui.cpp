@@ -133,7 +133,7 @@ static void SetupAndCheckPanels()
         //GUI::skeleMain = eng->CreatePanel(&type, "SkeleMain", root)->panel;
 		typedef panorama::PanelWrapper* (__thiscall *oCreatePanel)(void*, panorama::CPanoramaSymbol panelType, char const* id, panorama::IUIPanel* createInThisParent);
 		#ifdef WIN32
-		auto skelewrapper = getvfunc<oCreatePanel>(eng, 147)(eng, type, "SkeleMain", root);
+		auto skelewrapper = getvfunc<oCreatePanel>(eng, 148)(eng, type, "SkeleMain", root);
 		GUI::skeleMain = skelewrapper->panel;
 		#else
 		GUI::skeleMain = eng->CreatePanel(&type, "SkeleMain", root)->panel;
