@@ -35,7 +35,7 @@ using LockCursorFn = void(__thiscall*)(void*);
 namespace Hooks
 {
 	void __stdcall FrameStageNotify(ClientFrameStage_t stage);
-	void __fastcall SetKeyCodeState(void* thisptr, int, ButtonCode_t code, bool bPressed);
+	void __stdcall SetKeyCodeState(void* thisptr, ButtonCode_t code, bool bPressed);
 	void __fastcall BeginFrame(void* thisptr, int, float frameTime);
 	bool __fastcall ShouldDrawFog(void* thisptr);
 
