@@ -3,7 +3,7 @@
 void Visuals::PaintTraverse() {
     if (!engine->IsInGame()) 
 		return;
-    for (auto i = 0; i < engine->GetMaxClients(); i++) {
+    for (auto i = 0; i < entityList->GetHighestEntityIndex(); i++) {
 		auto ent = entityList->GetClientEntity(i);
 		if (!ent)
 			continue;

@@ -1,0 +1,182 @@
+bin/linux64/launcher_client.so
+	VEngineCvar007
+	EventSystem001
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/filesystem_stdio_client.so
+	VBaseFileSystem011
+	VNewAsyncFileSystem001
+	VFileSystem017
+	QueuedLoaderVersion001
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/engine_client.so
+	VEngineEffects001
+	VEngineRenderView014
+	VEngineClient014
+	VDebugOverlay004
+	VPhysicsDebugOverlay001
+	VEngineModel016
+	VEngineShadowMgr002
+	ServerUploadGameStats001
+	ISERVERPLUGINHELPERS001
+	GameServerData001
+	VEngineServer023
+	BlackBoxVersion001
+	VCvarQuery001
+	EngineTraceServer004
+	EngineTraceClient004
+	GAMEEVENTSMANAGER002
+	GAMEEVENTSMANAGER001
+	VModelInfoServer002
+	VModelInfoClient004
+	INETSUPPORT_003
+	VEngineServerStringTable001
+	VEngineRandom001
+	SpatialPartition001
+	StaticPropMgrClient005
+	StaticPropMgrServer002
+	FileLoggingListener001
+	VENGINE_HLDS_API_VERSION002
+	VENGINE_LAUNCHER_API_VERSION004
+	VENGINE_GAMEUIFUNCS_VERSION005
+	VoiceServer002
+	VProfExport001
+	BugReporterUserName001
+	VEngineClientStringTable001
+	XboxSystemInterface002
+	IEngineSoundServer003
+	IEngineSoundClient003
+	VEngineVGui001
+	VENGINETOOL003
+	VENGINETOOLFRAMEWORK003
+	VTOOLFRAMEWORKVERSION002
+	VCLIENTENGINETOOLS001
+	VSERVERENGINETOOLS001
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/inputsystem_client.so
+	InputStackSystemVersion001
+	InputSystemVersion001
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/vphysics_client.so
+	VPhysics031
+	VPhysicsCollision007
+	VPhysicsSurfaceProps001
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/materialsystem_client.so
+	COLORCORRECTION_VERSION_1
+	VMaterialSystemStub001
+	MaterialSystemHardwareConfig013
+	ShaderDLL004
+	ShaderSystem002
+	VMaterialSystem080
+	VMaterialSystemConfig004
+	VEngineCvar007
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/datacache_client.so
+	VDataCache003
+	VStudioDataCache005
+	MDLCache004
+	VResourceAccessControl001
+	VPrecacheSystem001
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/studiorender_client.so
+	VStudioRender026
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/soundemittersystem_client.so
+	VSoundEmitter003
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/vscript_client.so
+	VScriptManager009
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/vguimatsurface_client.so
+	VGUI_Surface031
+	SchemeSurface001
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/vgui2_client.so
+	VGUI_Input005
+	VGUI_InputInternal001
+	VGUI_Scheme010
+	VGUI_System010
+	VGUI_ivgui008
+	VGUI_Panel009
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/panoramauiclient_client.so
+	PanoramaUIClient001
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/panorama_client.so
+	PanoramaUIEngine001
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/shaderapidx9_client.so
+	MaterialSystemHardwareConfig013
+	ShaderApi029
+	ShaderDevice001
+	DebugTextureInfo001
+	ShaderDeviceMgr001
+	ShaderShadow010
+	VBAllocTracker001
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/localize_client.so
+	Localize_001
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/panorama_text_pango_client.so
+	PanoramaTextServices001
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/stdshader_dx9_client.so
+	ShaderDLL004
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/csgo/bin/linux64/matchmaking_client.so
+	VENGINE_GAMETYPES_VERSION002
+	MATCHFRAMEWORK_001
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/csgo/bin/linux64/client_panorama_client.so
+	ClientRenderTargets001
+	RenderToRTHelper001
+	VENGINE_GAMETYPES_VERSION002
+	VClient018
+	GameUI011
+	GameClientExports001
+	VClientDllSharedAppSystems001
+	VCLIENTMATERIALSYSTEM001
+	VClientEntityList003
+	ClientLeafSystem002
+	ClientAlphaPropertyMgrV001
+	IEffects001
+	VParticleSystemQuery004
+	VCLIENTTOOLS001
+	ItemTintColor_IMaterialProxy003
+	CustomSteamImageOnModel_IMaterialProxy003
+	GameMovement001
+	VClientPrediction001
+	GameConsole004
+	RunGameEngine005
+	VGuiModuleLoader003
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/csgo/bin/linux64/server_client.so
+	ServerGameTags001
+	IEffects001
+	VENGINE_GAMETYPES_VERSION002
+	ServerGameDLL005
+	ServerGameEnts001
+	ServerGameClients004
+	VServerDllSharedAppSystems001
+	PlayerInfoManager001
+	PlayerInfoManager002
+	BotManager001
+	PluginHelpersCheck001
+	VSERVERTOOLS001
+	GameMovement001
+	HLTVDirector001
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/scenefilecache_client.so
+	SceneFileCache002
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/vaudio_miles_client.so
+	vaudio_miles
+	VAudio002
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/vaudio_celt_client.so
+	vaudio_celt
+
+/home/a47/.steam/steam/steamapps/common/Counter-Strike Global Offensive/bin/linux64/serverbrowser_client.so
+	ServerBrowser003
+	VGuiModuleServerBrowser001
+
