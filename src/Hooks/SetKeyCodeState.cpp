@@ -1,6 +1,6 @@
 #include "hooks.h"
 
-void Hooks::SetKeyCodeState(void* thisptr, ButtonCode_t code, bool bPressed)
+void __thiscall Hooks::SetKeyCodeState(void* thisptr, ButtonCode_t code, bool bPressed)
 {
 	if( !bPressed )
 		return inputInternalVMT->GetOriginalMethod<SetKeyCodeStateFn>((int)Indexes::SetKeyCodeState)(thisptr, code, bPressed);

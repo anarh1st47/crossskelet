@@ -32,21 +32,21 @@ using PaintFn =  void(__thiscall*)(void*, PaintMode_t);
 //typedef void (*LockCursorFn) (void*);
 using LockCursorFn = void(__thiscall*)(void*);
 
-namespace Hooks
+struct Hooks // with namespace we cannot use thiscall
 {
-	void __stdcall FrameStageNotify(ClientFrameStage_t stage);
-	void __stdcall SetKeyCodeState(void* thisptr, ButtonCode_t code, bool bPressed);
-	void __fastcall BeginFrame(void* thisptr, int, float frameTime);
-	bool __fastcall ShouldDrawFog(void* thisptr);
+	static void __stdcall FrameStageNotify(ClientFrameStage_t stage);
+	static void __thiscall SetKeyCodeState(void* thisptr, ButtonCode_t code, bool bPressed);
+	static void __fastcall BeginFrame(void* thisptr, int, float frameTime);
+	static bool __fastcall ShouldDrawFog(void* thisptr);
 
-	void __fastcall LockCursor(void* thisptr);
+	static void __fastcall LockCursor(void* thisptr);
 
-	void __fastcall Paint(void* thisptr, int, PaintMode_t mode);
+	static void __fastcall Paint(void* thisptr, int, PaintMode_t mode);
 
 
-	bool __fastcall CreateMove(void* thisptr, int, float flInputSampleTime, CUserCmd* cmd);
-	void __thiscall PaintTraverse(void*, VPANEL p, bool forceRepaint, bool allowForce);
-	}
+	static bool __fastcall CreateMove(void* thisptr, int, float flInputSampleTime, CUserCmd* cmd);
+	static void __thiscall PaintTraverse(void*, VPANEL p, bool forceRepaint, bool allowForce);
+};
 
 namespace CreateMove
 {
