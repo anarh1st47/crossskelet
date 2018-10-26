@@ -13,7 +13,9 @@ class UIEngine
 {
 public:
     virtual void DESTROY() = 0; // 0
-    //virtual void DESTROY2() = 0;
+#ifndef WIN32    
+    virtual void DESTROY2() = 0;
+#endif
     virtual void StartupSubsystems(panorama::IUISettings*, void* PlatWindow_t__) = 0;
     virtual void ConCommandInit(void* IConCommandBaseAccessor) = 0;
     virtual void Shutdown(void) = 0;
