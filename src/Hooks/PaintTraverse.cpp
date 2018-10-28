@@ -20,5 +20,6 @@ void __thiscall Hooks::PaintTraverse(void* t, VPANEL p, bool forceRepaint, bool 
 			Visuals::pFont = Draw::CreateFontt("tahoma", 15);
 		Visuals::PaintTraverse();
 		Draw::Text(10, 10, "CrossSkelet", Visuals::pFont, Color(255, 0, 0, 255));
+		cvar->ConsoleDPrintf("skele_disable_pp @ %p\n", (void*)cvar->FindVar("skele_disable_pp"));
 	}
 }

@@ -67,8 +67,8 @@ enum class CvarIndexes : char
 #else
 	15
 #endif
-	,
-	GetInt,
+    ,
+    GetInt,
     SetValueStr,
     SetValueFloat,
     SetValueInt,
@@ -89,7 +89,7 @@ public:
 
     void SetValue(const char* value)
     {
-	typedef void (__thiscall*oSetValue)(void*, const char*);
+	typedef void(__thiscall * oSetValue)(void*, const char*);
 	return getvfunc<oSetValue>(this, (int)CvarIndexes::SetValueStr)(this, value);
     }
 
@@ -112,26 +112,34 @@ public:
     }
 
     void* vtable;
-    ConVar* next; //0x0008
-    bool isRegistered; //0x0010
-    char pad_0011[7]; //0x0011
+
+    ConVar* pParent; //0x0008
+    ConVar* isRegistered; //0x0010
+
+    //char pad_0011[3]; //0x0011 //linux 7
+
     char* name; //0x0018
     char* description; //0x0020
     int32_t flags; //0x0028
-    char pad_0x0018[0x4]; //0x0018
-    void* s_pAccessor;
-    ConVar* pParent;
+    //char pad_0x0018[0x4]; //0x0018
+    //void* s_pAccessor;
+    //char* __pad2;//win
+    ConVar* pomojka;
     char* strDefault;
     char* strValue;
-    ConVarType_t type;
-    float fValue;
+    int strLength;
+    int32_t fValue;
     int32_t iValue;
-    bool hasMin;
-    char _padmin[3];
+    int32_t hasMin;
     float minVal;
-    bool hasMax;
-    char _padmax[3];
+    int32_t hasMax;
     float maxVal;
+    //bool hasMin;
+    ////char _padmin[3];
+    //float minVal;
+    //bool hasMax;
+    ////char _padmax[3];
+    //float maxVal;
     void* fnChangeCallback;
 };
 
@@ -141,11 +149,11 @@ class ICvar : public IAppSystem
 {
 public:
     virtual void* AllocateDLLIdentifier() = 0; // 9
-    virtual void RegisterConCommand(ConCommandBase* pCommandBase) = 0; //10
-    virtual void UnregisterConCommand(ConCommandBase* pCommandBase) = 0;
+    virtual void RegisterConCommand(ConVar* pCommandBase) = 0; //10
+    virtual void UnregisterConCommand(ConVar* pCommandBase) = 0;
     virtual void UnregisterConCommands(int id) = 0;
     virtual const char* GetCommandLineValue(const char* pVariableName) = 0;
-    virtual ConCommandBase* FindCommandBase(const char* name) = 0;
+    virtual ConVar* FindCommandBase(const char* name) = 0;
     virtual const ConCommandBase* FindCommandBase(const char* name) const = 0;
     virtual ConVar* FindVar(const char* var_name) = 0; //16
     virtual const ConVar* FindVar(const char* var_name) const = 0;

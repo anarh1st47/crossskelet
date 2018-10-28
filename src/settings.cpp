@@ -2,13 +2,16 @@
 
 bool Settings::RegisterConVars()
 {
+    //ConVar* var = new ConVar("skele_disable_pp", "0", FCVAR_RELEASE);
+    
+
     bool convarsOK = true;
     convarsOK &= Util::RegisterConVar("skele_disable_pp", "0");
-    convarsOK &= Util::RegisterConVar("skele_disable_fog", "0");
+    /*convarsOK &= Util::RegisterConVar("skele_disable_fog", "0");
     convarsOK &= Util::RegisterConVar("skele_skybox_enabled", "0");
-    convarsOK &= Util::RegisterConVar("skele_skybox_name", "vietnam");
+    convarsOK &= Util::RegisterConVar("skele_skybox_name", "vietnam");*/
 
-    cvar->ConsoleDPrintf("skybox: %d\n", cvar->FindVar("skele_skybox_enabled")->GetInt());
+    //cvar->ConsoleDPrintf("skybox: %d\n", cvar->FindVar("skele_skybox_enabled")->GetInt());
 
     return convarsOK;
 }
