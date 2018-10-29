@@ -11,7 +11,7 @@ void SkyBox::FrameStageNotify( ClientFrameStage_t stage )
     if (!skybox)
         return;
 
-    const char* skyboxName = cvar->FindVar("skele_skybox_name")->strValue;
+    const char* skyboxName = cvar->FindVar("skele_skybox_name")->GetString();
 
     if (!skyboxName)
         return;

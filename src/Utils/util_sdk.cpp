@@ -4,7 +4,7 @@ bool Util::RegisterConVar(const char* name, const char* value, uint32_t flags, c
 {
     /** GHETTO HACKS AHEAD - BEWARE! **/
     // we're gonna base our convar off of this random one
-    ConVar* var = cvar->FindCommandBase("sensitivity");
+    ConVar* var = (ConVar*)cvar->FindCommandBase("sensitivity");
     auto savedSens = var->GetFloat();
 
 	var->SetValue(value);
@@ -30,79 +30,79 @@ bool Util::RegisterConVar(const char* name, const char* value, uint32_t flags, c
             return false;
     }
     */
-    ConVar* command = new ConVar;
-    // copy er' in
-    memcpy(command, var, sizeof(ConVar));
-    
-    // Lastly, change the variables we want to be different.
-    command->isRegistered = 0;
-    command->flags = flags;
-    //command->next = NULL;
-    command->pParent = command;
-    command->pomojka = command;
-	command->isRegistered = command;
-    // command->type = type;
-    command->hasMin = bMin;
-    command->hasMax = bMax;
-    command->minVal = fMin;
-    command->maxVal = fMax;
-    
+    ConVar* command = new ConVar(name, value, FCVAR_CLIENTDLL, helpString);
+ //   // copy er' in
+ //   memcpy(command, var, sizeof(ConVar));
+ //   
+ //   // Lastly, change the variables we want to be different.
+ //   command->isRegistered = 0;
+ //   command->flags = flags;
+ //   //command->next = NULL;
+ //   command->pParent = command;
+ //   command->pomojka = command;
+	//command->isRegistered = command;
+ //   // command->type = type;
+ //   command->hasMin = bMin;
+ //   command->hasMax = bMax;
+ //   command->minVal = fMin;
+ //   command->maxVal = fMax;
+ //   
 
-	
-    //command->s_pAccessor = NULL;
-    //command->unk = NULL;
-    //command->unk2 = NULL;
+	//
+ //   //command->s_pAccessor = NULL;
+ //   //command->unk = NULL;
+ //   //command->unk2 = NULL;
 
-    size_t nameLen = strlen(name) + 1;
-    command->name = new char[nameLen];
-    if (command->name && name)
-    {
-	strncpy(command->name, name, nameLen);
-    }
-    else
-    {
-	cvar->ConsoleDPrintf("[%s]Error allocating space for ConVar name (%s)!\n", __func__, name);
-	return false;
-    }
+ //   size_t nameLen = strlen(name) + 1;
+ //   command->name = new char[nameLen];
+ //   if (command->name && name)
+ //   {
+	//strncpy(command->name, name, nameLen);
+ //   }
+ //   else
+ //   {
+	//cvar->ConsoleDPrintf("[%s]Error allocating space for ConVar name (%s)!\n", __func__, name);
+	//return false;
+ //   }
 
-    size_t valueLen = strlen(value) + 1;
-    command->strValue = new char[valueLen];
-    command->strDefault = new char[valueLen];
-    if (command->strValue && command->strDefault && value)
-    {
-	strncpy(command->strValue, value, valueLen);
-	strncpy(command->strDefault, value, valueLen);
-	//command->strValue[valueLen] = '\0';
-    }
-    else
-    {
-	cvar->ConsoleDPrintf("[%s]Error allocating space for ConVar strValue (%s)!\n", __func__, name);
-	return false;
-    }
+ //   size_t valueLen = strlen(value) + 1;
+ //   command->strValue = new char[valueLen];
+ //   command->strDefault = new char[valueLen];
+ //   if (command->strValue && command->strDefault && value)
+ //   {
+	//strncpy(command->strValue, value, valueLen);
+	//strncpy(command->strDefault, value, valueLen);
+	////command->strValue[valueLen] = '\0';
+ //   }
+ //   else
+ //   {
+	//cvar->ConsoleDPrintf("[%s]Error allocating space for ConVar strValue (%s)!\n", __func__, name);
+	//return false;
+ //   }
 
-    if (helpString)
-    {
-	size_t descLen = strlen(helpString) + 1;
-	command->description = new char[descLen];
-	if (command->description)
-	{
-	    strncpy(command->description, helpString, descLen);
-	    //command->description[descLen] = '\0';
-	}
-	else
-	{
-	    cvar->ConsoleDPrintf("[%s]Error allocating space for ConVar description (%s)!\n", __func__, name);
-	    return false;
-	}
-    }
-    else
-    {
-	command->description = NULL;
-    }
+ //   if (helpString)
+ //   {
+	//size_t descLen = strlen(helpString) + 1;
+	//command->description = new char[descLen];
+	//if (command->description)
+	//{
+	//    strncpy(command->description, helpString, descLen);
+	//    //command->description[descLen] = '\0';
+	//}
+	//else
+	//{
+	//    cvar->ConsoleDPrintf("[%s]Error allocating space for ConVar description (%s)!\n", __func__, name);
+	//    return false;
+	//}
+ //   }
+ //   else
+ //   {
+	//command->description = NULL;
+ //   }
 
     cvar->RegisterConCommand(command);
     Util::createdConvars.push_back(command);
-    cvar->ConsoleDPrintf("Registered convar %s @ %p\n", command->name, (void*)command);
+    cvar->ConsoleDPrintf("Registered convar %s @ %p\n", command->m_pszName, (void*)command);
 
     return true;
 }

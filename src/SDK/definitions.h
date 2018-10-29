@@ -1758,22 +1758,7 @@ enum TracerEffects_t : int
     FIFTY_CAL_LOW_GLOW,
 };
 
-struct GrenadeInfo
-{
-	GrenadeType gType;
-	Vector pos;
-	QAngle angle;
-	ThrowType tType;
-	std::string name;
-	GrenadeInfo(GrenadeType gType, Vector pos, QAngle angle,ThrowType tType, std::string name)
-	{
-		this->gType = gType;
-		this->pos = pos;
-		this->angle = angle;
-		this->tType = tType;
-		this->name = name;
-	}
-};
+
 
 const std::map<ItemDefinitionIndex, DefItem_t> ItemDefinitionIndexMap = {
 		{ ItemDefinitionIndex::INVALID,						{ "<-Default->", "DEFAULT", "", "" } },

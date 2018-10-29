@@ -1,4 +1,5 @@
 #pragma once
+#include "definitions.h"
 
 struct AppSystemInfo_t
 {
