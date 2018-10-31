@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 2.8)
 project(skeletux)
 
-#if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-#    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 5.2)
-#        message(FATAL_ERROR "Your GCC seems outdated. ( Requires >=5.2 )")
-#    endif()
-#else()
-#	target_compile_definitions(skeletux PUBLIC WIN32)
-#endif()
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 5.2)
+        message(FATAL_ERROR "Your GCC seems outdated. ( Requires >=5.2 )")
+    endif()
+else()
+    message(FATAL_ERROR "You must have GCC >= 5.2 installed in order to compile")
+endif()
 
 FUNCTION (EXCLUDE_FILES_FROM_DIR_IN_LIST _InFileList _excludeDirName _verbose)
     foreach (ITR ${_InFileList})
@@ -24,10 +24,12 @@ FUNCTION (EXCLUDE_FILES_FROM_DIR_IN_LIST _InFileList _excludeDirName _verbose)
     set(SOURCE_FILES ${_InFileList} PARENT_SCOPE) # Return the SOURCE_FILES variable to the calling parent
 ENDFUNCTION (EXCLUDE_FILES_FROM_DIR_IN_LIST)
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O3 -g -std=c++17 -Wall -ldl -fpic -shared --no-gnu-unique /std:c++17")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O3 -g -std=c++17 -Wall -ldl -fpic -shared --no-gnu-unique")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -std=c++17 -Wall -ldl -fpic -shared --no-gnu-unique")
 
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}")
+
+set (CMAKE_CXX_FLAGS   "${CMAKE_CXX_FLAGS} -fpermissive")
 
 if(NOT CMAKE_BUILD_TYPE)
     message(STATUS "No build type selected, default to Release")
@@ -41,5 +43,4 @@ EXCLUDE_FILES_FROM_DIR_IN_LIST("${SOURCE_FILES}" "${CMAKE_SOURCE_DIR}/src/ImGUI/
 include_directories(${INCLUDE_DIRS})
 
 add_library(skeletux SHARED ${SOURCE_FILES})
-#target_link_libraries(skeletux GL dl)
-target_compile_definitions(skeletux PUBLIC WIN32)
+target_link_libraries(skeletux GL dl)

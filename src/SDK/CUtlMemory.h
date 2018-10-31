@@ -1,6 +1,13 @@
 #pragma once
 
 #include <assert.h>
+#include <algorithm> //std::swap
+
+#if defined(__INTEL_COMPILER)
+#include <malloc.h>
+#else
+#include <mm_malloc.h>
+#endif 
 
 template <class T, class I = int>
 class CUtlMemory
@@ -136,8 +143,8 @@ void CUtlMemory<T, I>::Init(int nGrowSize /*= 0*/, int nInitSize /*= 0*/)
     assert(nGrowSize >= 0);
     if (m_nAllocationCount)
     {
-	UTLMEMORY_TRACK_ALLOC();
-	MEM_ALLOC_CREDIT_CLASS();
+	//UTLMEMORY_TRACK_ALLOC();
+	//MEM_ALLOC_CREDIT_CLASS();
 	m_pMemory = (T*)malloc(m_nAllocationCount * sizeof(T));
     }
 }
@@ -148,9 +155,9 @@ void CUtlMemory<T, I>::Init(int nGrowSize /*= 0*/, int nInitSize /*= 0*/)
 template <class T, class I>
 void CUtlMemory<T, I>::Swap(CUtlMemory<T, I>& mem)
 {
-    V_swap(m_nGrowSize, mem.m_nGrowSize);
-    V_swap(m_pMemory, mem.m_pMemory);
-    V_swap(m_nAllocationCount, mem.m_nAllocationCount);
+    std::swap(m_nGrowSize, mem.m_nGrowSize);
+    std::swap(m_pMemory, mem.m_pMemory);
+    std::swap(m_nAllocationCount, mem.m_nAllocationCount);
 }
 
 //-----------------------------------------------------------------------------
@@ -568,13 +575,13 @@ CUtlMemoryAligned<T, nAlignment>::CUtlMemoryAligned(int nGrowSize, int nInitAllo
     this->ValidateGrowSize();
 
     // Alignment must be a power of two
-    COMPILE_TIME_ASSERT((nAlignment & (nAlignment - 1)) == 0);
+    static_assert((nAlignment & (nAlignment - 1)) == 0);
     assert((nGrowSize >= 0) && (nGrowSize != CUtlMemory<T>::EXTERNAL_BUFFER_MARKER));
     if (CUtlMemory<T>::m_nAllocationCount)
     {
-	UTLMEMORY_TRACK_ALLOC();
-	MEM_ALLOC_CREDIT_CLASS();
-	CUtlMemory<T>::m_pMemory = (T*)_aligned_malloc(nInitAllocationCount * sizeof(T), nAlignment);
+	//UTLMEMORY_TRACK_ALLOC();
+	//MEM_ALLOC_CREDIT_CLASS();
+	CUtlMemory<T>::m_pMemory = (T*)_mm_malloc(nInitAllocationCount * sizeof(T), nAlignment);
     }
 }
 
@@ -648,7 +655,7 @@ void CUtlMemoryAligned<T, nAlignment>::Grow(int num)
 	return;
     }
 
-    UTLMEMORY_TRACK_FREE();
+    //UTLMEMORY_TRACK_FREE();
 
     // Make sure we have at least numallocated + num allocations.
     // Use the grow rules specified for this memory (in m_nGrowSize)
@@ -656,17 +663,17 @@ void CUtlMemoryAligned<T, nAlignment>::Grow(int num)
 
     CUtlMemory<T>::m_nAllocationCount = UtlMemory_CalcNewAllocationCount(CUtlMemory<T>::m_nAllocationCount, CUtlMemory<T>::m_nGrowSize, nAllocationRequested, sizeof(T));
 
-    UTLMEMORY_TRACK_ALLOC();
+    //UTLMEMORY_TRACK_ALLOC();
 
     if (CUtlMemory<T>::m_pMemory)
     {
-	MEM_ALLOC_CREDIT_CLASS();
+	//MEM_ALLOC_CREDIT_CLASS();
 	CUtlMemory<T>::m_pMemory = (T*)MemAlloc_ReallocAligned(CUtlMemory<T>::m_pMemory, CUtlMemory<T>::m_nAllocationCount * sizeof(T), nAlignment);
 	assert(CUtlMemory<T>::m_pMemory);
     }
     else
     {
-	MEM_ALLOC_CREDIT_CLASS();
+	//MEM_ALLOC_CREDIT_CLASS();
 	CUtlMemory<T>::m_pMemory = (T*)MemAlloc_AllocAligned(CUtlMemory<T>::m_nAllocationCount * sizeof(T), nAlignment);
 	assert(CUtlMemory<T>::m_pMemory);
     }
@@ -688,20 +695,20 @@ inline void CUtlMemoryAligned<T, nAlignment>::EnsureCapacity(int num)
 	return;
     }
 
-    UTLMEMORY_TRACK_FREE();
+    //UTLMEMORY_TRACK_FREE();
 
     CUtlMemory<T>::m_nAllocationCount = num;
 
-    UTLMEMORY_TRACK_ALLOC();
+    //UTLMEMORY_TRACK_ALLOC();
 
     if (CUtlMemory<T>::m_pMemory)
     {
-	MEM_ALLOC_CREDIT_CLASS();
+	//MEM_ALLOC_CREDIT_CLASS();
 	CUtlMemory<T>::m_pMemory = (T*)MemAlloc_ReallocAligned(CUtlMemory<T>::m_pMemory, CUtlMemory<T>::m_nAllocationCount * sizeof(T), nAlignment);
     }
     else
     {
-	MEM_ALLOC_CREDIT_CLASS();
+	//MEM_ALLOC_CREDIT_CLASS();
 	CUtlMemory<T>::m_pMemory = (T*)MemAlloc_AllocAligned(CUtlMemory<T>::m_nAllocationCount * sizeof(T), nAlignment);
     }
 }
@@ -716,7 +723,7 @@ void CUtlMemoryAligned<T, nAlignment>::Purge()
     {
 	if (CUtlMemory<T>::m_pMemory)
 	{
-	    UTLMEMORY_TRACK_FREE();
+	    //UTLMEMORY_TRACK_FREE();
 	    MemAlloc_FreeAligned(CUtlMemory<T>::m_pMemory);
 	    CUtlMemory<T>::m_pMemory = 0;
 	}

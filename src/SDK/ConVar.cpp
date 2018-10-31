@@ -3,9 +3,10 @@
 #include "../Utils/util_sdk.h"
 
 #include <assert.h>
+#include <strings.h> //stricmp
 
 #define ALIGN_VALUE(val, alignment) ((val + alignment - 1) & ~(alignment - 1))
-#define stackalloc(_size) _alloca(ALIGN_VALUE(_size, 16))
+#define stackalloc(_size) alloca(ALIGN_VALUE(_size, 16))
 
 ConCommandBase* ConCommandBase::s_pConCommandBases = NULL;
 ConCommandBase* ConCommandBase::s_pRegisteredCommands = NULL;
@@ -188,7 +189,7 @@ char* ConCommandBase::CopyString(const char* from)
     else
     {
 	to = new char[len + 1];
-	strncpy_s(to, len + 1, from, len + 1);
+	strncpy(to, from, len + 1);
     }
     return to;
 }
@@ -302,7 +303,7 @@ const char* CCommand::FindArg(const char* pName) const
     int nArgC = ArgC();
     for (int i = 1; i < nArgC; i++)
     {
-	if (!_stricmp(Arg(i), pName))
+	if (!strcasecmp(Arg(i), pName))
 	    return (i + 1) < nArgC ? Arg(i + 1) : "";
     }
     return 0;

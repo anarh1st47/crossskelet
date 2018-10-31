@@ -2,7 +2,10 @@
 #include "CUtlMemory.h"
 #include <cassert>
 #include <cstring>
-
+#ifndef WIN32
+#define __cdecl
+#define MEM_ALLOC_CREDIT_CLASS()
+#endif
 
 template <class T>
 inline T* CopyConstruct(T* pMemory, T const& src)
@@ -298,7 +301,7 @@ void CUtlVector<T, A>::Sort(int(__cdecl* pfnCompare)(const T*, const T*))
 	    {
 		if (pfnCompare(&Element(j - 1), &Element(j)) < 0)
 		{
-		    V_swap(Element(j - 1), Element(j));
+		    std::swap(Element(j - 1), Element(j));
 		}
 	    }
 	}
@@ -500,10 +503,8 @@ template <typename T, class A>
 void CUtlVector<T, A>::Swap(CUtlVector<T, A>& vec)
 {
     m_Memory.Swap(vec.m_Memory);
-    V_swap(m_Size, vec.m_Size);
-#ifndef _X360
-    V_swap(m_pElements, vec.m_pElements);
-#endif
+    std::swap(m_Size, vec.m_Size);
+    std::swap(m_pElements, vec.m_pElements);
 }
 
 template <typename T, class A>
@@ -772,7 +773,7 @@ public:
     void CopyAndAddToTail(char const* pString) // clone the string and add to the end
     {
 	char* pNewStr = new char[1 + strlen(pString)];
-	strcpy_s(pNewStr, 1 + strlen(pString), pString);
+	strncpy(pNewStr, pString, 1 + strlen(pString));
 	AddToTail(pNewStr);
     }
 
