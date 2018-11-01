@@ -53,8 +53,8 @@ void MainThread()
 	//materialVMT->HookVM( Hooks::BeginFrame, 42 );
 	//materialVMT->ApplyVMT();
 
-	//surfaceVMT->HookVM( Hooks::LockCursor, 67 );
-	//surfaceVMT->ApplyVMT();
+	surfaceVMT->HookVM( Hooks::LockCursor, 67 );
+	surfaceVMT->ApplyVMT();
 
 	//NetVarManager::DumpNetvars();
 	//Offsets::GetOffsets();

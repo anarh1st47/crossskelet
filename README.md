@@ -57,10 +57,10 @@ This looks like garbage lol
 LWSS and Fuzion contributors - Skeletux and Fuzion projects
 McSwaggens, luk1337, AnterGhost, nvllvs, aixxe and another AimTux contributors.
 Atex - linux basehook project
-MarkHC - CSGOSimple project
+MarkHC and CSGOSimple contributors - CSGOSimple project
 vladislavik36 - some help with CrossSkelet
 
-##TODO
+## TODO
 
 (todo before release)
 Merge pattern scanners
