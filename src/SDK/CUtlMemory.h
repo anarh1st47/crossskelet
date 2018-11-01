@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <algorithm> //std::swap
 
-#if defined(__INTEL_COMPILER)
+#if defined(WIN32)
 #include <malloc.h>
 #else
 #include <mm_malloc.h>

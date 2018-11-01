@@ -3,7 +3,11 @@
 #include "../Utils/util_sdk.h"
 
 #include <assert.h>
-#include <strings.h> //stricmp
+#ifndef WIN32
+#include <strings.h> //strcasecmp
+#else
+#define strcasecmp(a, b) _stricmp(a,b)
+#endif
 
 #define ALIGN_VALUE(val, alignment) ((val + alignment - 1) & ~(alignment - 1))
 #define stackalloc(_size) alloca(ALIGN_VALUE(_size, 16))
