@@ -57,7 +57,7 @@ void MainThread()
 	surfaceVMT->ApplyVMT();
 
 	//NetVarManager::DumpNetvars();
-	//Offsets::GetOffsets();
+	Offsets::GetOffsets();
 
 	//Settings::LoadSettings();
 

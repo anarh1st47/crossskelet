@@ -21,10 +21,10 @@ R"zk1sakz(
             </Button>
           </Panel>
           <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <Label text="No PP"/>
+            <Label text="Enable ESP"/>
           </Panel>
           <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <CSGOSettingsEnumDropDown class="PopupButton White" convar="skele_disable_pp">
+            <CSGOSettingsEnumDropDown class="PopupButton White" convar="skele_enable_esp">
               <Label text="#GameUI_No" value="0" id ="ppOff"/>
               <Label text="#GameUI_Yes" value="1" id ="ppOn"/>
             </CSGOSettingsEnumDropDown>

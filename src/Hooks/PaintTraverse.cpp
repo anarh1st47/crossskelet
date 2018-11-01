@@ -16,7 +16,8 @@ void __thiscall Hooks::PaintTraverse(void* t, VPANEL p, bool forceRepaint, bool 
 	else if (panelId == p) {
 		if (!Visuals::pFont)
 			Visuals::pFont = Draw::CreateFontt("tahoma", 15);
-		Visuals::PaintTraverse();
+		if (cvar->FindVar("skele_enable_esp")->GetInt())
+			Visuals::PaintTraverse();
 		Draw::Text(10, 10, "CrossSkelet", Visuals::pFont, Color(255, 0, 0, 255));
 	}
 }

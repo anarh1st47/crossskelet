@@ -7,6 +7,7 @@ bool Settings::RegisterConVars()
 
     bool convarsOK = true;
     convarsOK &= Util::RegisterConVar("skele_disable_pp", "0");
+    convarsOK &= Util::RegisterConVar("skele_enable_esp", "1");
     /*convarsOK &= Util::RegisterConVar("skele_disable_fog", "0");
     convarsOK &= Util::RegisterConVar("skele_skybox_enabled", "0");
     convarsOK &= Util::RegisterConVar("skele_skybox_name", "vietnam");*/

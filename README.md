@@ -63,10 +63,10 @@ vladislavik36 - some help with CrossSkelet
 ## TODO
 
 (todo before release)
-Merge pattern scanners
-Verify usercmd
-Menu redisign
-Refactoring
+* Merge pattern scanners
+* Verify usercmd
+* Menu redisign
+* Refactoring
 
 (todo after release)
-Mac OS support
+* Mac OS support
