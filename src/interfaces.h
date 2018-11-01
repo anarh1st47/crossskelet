@@ -57,8 +57,28 @@ inline int* nPredictionRandomSeed;
 inline CMoveData* g_MoveData;
 inline bool* s_bOverridePostProcessingDisable;
 
-namespace Interfaces
-{
-void FindInterfaces();
-void DumpInterfaces();
+
+inline char
+#ifdef WIN32
+           *CLIENT_FILE = "client_panorama.dll", *ENGINE_FILE = "engine.dll", *VSTD_FILE = "vstdlib.dll",
+	       *VGUI_FILE = "vguimatsurface.dll", *VGUI2_FILE = "vgui2.dll", *MATSYS_FILE = "materialsystem.dll",
+	       *DATACACHE_FILE = "datacache.dll", *VPHYS_FILE = "vphysics.dll", *INSYS_FILE = "inputsystem.dll",
+	       *LOCALIZE_FILE = "localize.dll", *PANORAMA_FILE = "panorama.dll";
+#else
+          *CLIENT_FILE = "./csgo/bin/linux64/client_panorama_client.so",
+          *ENGINE_FILE = "./bin/linux64/engine_client.so",
+          *VSTD_FILE = "vstdlib.dll",
+          *VGUI_FILE = "./bin/linux64/vguimatsurface_client.so",
+          *VGUI2_FILE = "./bin/linux64/vgui2_client.so",
+          *MATSYS_FILE = "./bin/linux64/materialsystem_client.so",
+          *DATACACHE_FILE = "datacache.dll",
+          *VPHYS_FILE = "./bin/linux64/vphysics_client.so",
+          *INSYS_FILE = "./bin/linux64/inputsystem_client.so",
+          *LOCALIZE_FILE = "./bin/linux64/localize_client.so",
+          *PANORAMA_FILE = "./bin/linux64/panorama_client.so";
+#endif
+
+namespace Interfaces {
+	void FindInterfaces();
+	void DumpInterfaces();
 }

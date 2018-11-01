@@ -4,13 +4,11 @@
 
 using PaintTraverseFn = void(__thiscall*)(IVPanel*, VPANEL, bool, bool);
 
-void __thiscall Hooks::PaintTraverse(void* t, VPANEL p, bool forceRepaint, bool allowForce)
-{
+void __thiscall Hooks::PaintTraverse(void* t, VPANEL p, bool forceRepaint, bool allowForce) {
     static auto panelId = VPANEL{ 0 };
     static auto oPaintTraverse = panelVMT->GetOriginalMethod<PaintTraverseFn>((int)Indexes::PanelTraverse);
     oPaintTraverse(panel, p, forceRepaint, allowForce);
-    if (!panelId)
-    {
+    if (!panelId) {
 		const auto panelName = panel->GetName(p);
 		if (!strcmp(panelName, "FocusOverlayPanel"))
 			panelId = p;
@@ -20,6 +18,5 @@ void __thiscall Hooks::PaintTraverse(void* t, VPANEL p, bool forceRepaint, bool 
 			Visuals::pFont = Draw::CreateFontt("tahoma", 15);
 		Visuals::PaintTraverse();
 		Draw::Text(10, 10, "CrossSkelet", Visuals::pFont, Color(255, 0, 0, 255));
-		cvar->ConsoleDPrintf("skele_disable_pp @ %p\n", (void*)cvar->FindVar("skele_disable_pp"));
 	}
 }
