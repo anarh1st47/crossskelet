@@ -15,15 +15,12 @@ void Interfaces::FindInterfaces()
 	inputInternal = GetInterface<IInputInternal>(VGUI2_FILE, "VGUI_InputInternal001");
 	material = GetInterface<IMaterialSystem>(MATSYS_FILE, "VMaterialSystem080");
 	cvar = GetInterface<ICvar>(MATSYS_FILE, "VEngineCvar007");
-	//effects = GetInterface<CEffects>(ENGINE_FILE, "VEngineEffects");// ?????????
 	gameEvents = GetInterface<IGameEventManager2>(ENGINE_FILE, "GAMEEVENTSMANAGER002");
 	physics = GetInterface<IPhysicsSurfaceProps>(VPHYS_FILE, "VPhysicsSurfaceProps001");
-    //prediction = GetInterface<IPrediction>("./csgo/bin/linux64/client_client.so", "VClientPrediction001"); //???????????
 	gameMovement = GetInterface<IGameMovement>(CLIENT_FILE, "GameMovement001");
 	engineVGui = GetInterface<IEngineVGui>(ENGINE_FILE, "VEngineVGui001");
 	sound = GetInterface<IEngineSound>(ENGINE_FILE, "IEngineSoundClient003");
 	localize = GetInterface<ILocalize>(LOCALIZE_FILE, "Localize_001");
-	//commandline = GetSymbolAddress<CommandLineFn>("./bin/linux64/libtier0_client.so", "CommandLine")();
 	panoramaEngine = GetInterface<IPanoramaUIEngine>(PANORAMA_FILE, "PanoramaUIEngine001");
 
 }

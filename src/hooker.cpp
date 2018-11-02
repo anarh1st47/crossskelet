@@ -25,11 +25,15 @@ auto GetModuleSize(const char* m)
 };
 #endif
 
+constexpr auto KEYVALUES_PATTERN =
+#ifdef WIN32
+    "55 8B EC 51 33 C0 C7 45 ? ? ? ? ? 56 8B F1 81 26 ? ? ? ? C6 46 03 ? 89 46 10 89 46 18 89 46 14 89 46 1C 89 46 04 89 46 08 89 46 0C FF 15 ? ? ? ? 6A 01 FF 75 08 8D 4D FC 8B 10 51 8B C8 FF 52 24 8B 0E 33 4D FC 81 E1 ? ? ? ? 31 0E 88 46 03"
+#else
+    "81 27 ?? ?? ?? FF 55 31 C0 48 89 E5 5D"
+#endif
+;
+
 RecvVarProxyFn fnSequenceProxyFn;
-
-StartDrawingFn StartDrawing;
-FinishDrawingFn FinishDrawing;
-
 
 std::vector<dlinfo_t> libraries;
 
@@ -128,7 +132,7 @@ void Hooker::FindIClientMode()
     GetClientModeFn GetClientMode = reinterpret_cast<GetClientModeFn>(GetAbsoluteAddress(hudprocessinput + 11, 1, 5));
 
     clientMode = GetClientMode();
-   
+
 #endif
     clientModeVMT = new VMT(clientMode);
 }
@@ -136,7 +140,7 @@ void Hooker::FindIClientMode()
 void Hooker::FindGlobalVars()
 {
 
-	#ifdef WIN32
+#ifdef WIN32
     globalVars = **(CGlobalVars***)(PatternFinder::PatternScan("client_panorama.dll", "A1 ? ? ? ? 5E 8B 40 10") + 1);
 #else
     uintptr_t HudUpdate = reinterpret_cast<uintptr_t>(getvtable(client)[11]);
@@ -156,71 +160,14 @@ void Hooker::FindCInput()
 #endif
 }
 
-void Hooker::FindPlayerResource()
-{
-    uintptr_t instruction_addr = PatternFinder::FindPatternInModule("client_panorama_client.so",
-	(unsigned char*)"\x48\x8B\x05\x00\x00\x00\x00\x55\x48\x89\xE5\x48\x85\xC0\x74\x10\x48",
-	"xxx????xxxxxxxxxx");
-
-    csPlayerResource = reinterpret_cast<C_CSPlayerResource**>(GetAbsoluteAddress(instruction_addr, 3, 7));
-}
-
-void Hooker::FindGameRules()
-{
-    auto instruction_addr = PatternFinder::FindPatternInModule("client_panorama_client.so",
-	(unsigned char*)"\x48\x8B\x05"
-			"\x00\x00\x00\x00"
-			"\x48\x8B\x38\x0F\x84",
-	"xxx????xxxxx");
-
-    csGameRules = *reinterpret_cast<C_CSGameRules***>(GetAbsoluteAddress(instruction_addr, 3, 7));
-}
-
 void Hooker::FindViewRender()
 {
-#ifndef WIN32 
-	auto func_address = PatternFinder::PatternScan("client_panorama_client.so", "48 8D 05 ?? ?? ?? ?? 55 F3 0F 10 ?? ?? ?? ?? ?? 48 89 05 ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 89 E5 48 8D 0D ?? ?? ?? ?? 0F 57 C9 C6");
-
+#ifndef WIN32
+    auto func_address = PatternFinder::PatternScan("client_panorama_client.so", "48 8D 05 ?? ?? ?? ?? 55 F3 0F 10 ?? ?? ?? ?? ?? 48 89 05 ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 89 E5 48 8D 0D ?? ?? ?? ?? 0F 57 C9 C6");
     viewRender = reinterpret_cast<CViewRender*>(GetAbsoluteAddress(func_address + 50, 3, 7));
 #else
     viewRender = *(CViewRender**)(PatternFinder::PatternScan("client_panorama.dll", "A1 ? ? ? ? B9 ? ? ? ? C7 05 ? ? ? ? ? ? ? ? FF 10") + 1);
 #endif
-}
-
-void Hooker::FindPrediction()
-{
-    auto seed_instruction_addr = PatternFinder::FindPatternInModule("client_panorama_client.so",
-	(unsigned char*)"\x48\x8B\x05"
-			"\x00\x00\x00\x00"
-			"\x8B\x38\xE8"
-			"\x00\x00\x00\x00"
-			"\x89\xC7",
-	"xxx????xxx????xx");
-    auto helper_instruction_addr = PatternFinder::FindPatternInModule("client_panorama_client.so",
-	(unsigned char*)"\x00\x48\x89\x3D\x00\x00\x00\x00\xC3",
-	"xxxx????x");
-    auto movedata_instruction_addr = PatternFinder::FindPatternInModule("client_panorama_client.so",
-	(unsigned char*)"\x48\x8B\x0D"
-			"\x00\x00\x00\x00"
-			"\x4C\x89\xEA",
-	"xxx????xxx");
-
-    nPredictionRandomSeed = *reinterpret_cast<int**>(GetAbsoluteAddress(seed_instruction_addr, 3, 7));
-    moveHelper = *reinterpret_cast<IMoveHelper**>(GetAbsoluteAddress(helper_instruction_addr + 1, 3, 7));
-    g_MoveData = **reinterpret_cast<CMoveData***>(GetAbsoluteAddress(movedata_instruction_addr, 3, 7));
-}
-
-void Hooker::FindSurfaceDrawing()
-{
-    auto start_func_address = PatternFinder::FindPatternInModule("vguimatsurface_client.so",
-	(unsigned char*)"\x55\x48\x89\xE5\x53\x48\x89\xFB\x48\x83\xEC\x28\x80\x3D",
-	"xxxxxxxxxxxxxx");
-    StartDrawing = reinterpret_cast<StartDrawingFn>(start_func_address);
-
-    auto finish_func_address = PatternFinder::FindPatternInModule("vguimatsurface_client.so",
-	(unsigned char*)"\x55\x31\xFF\x48\x89\xE5\x53",
-	"xxxxxxx");
-    FinishDrawing = reinterpret_cast<FinishDrawingFn>(finish_func_address);
 }
 
 void Hooker::FindGetLocalClient()
@@ -231,63 +178,8 @@ void Hooker::FindGetLocalClient()
 
 void Hooker::FindInitKeyValues()
 {
-    auto func_address = PatternFinder::FindPatternInModule("client_panorama_client.so",
-	(unsigned char*)"\x81\x27\x00\x00\x00\xFF\x55\x31\xC0\x48\x89\xE5\x5D",
-	"xxxxxxxxxxxxx");
+    auto func_address = PatternFinder::PatternScan(CLIENT_FILE,	KEYVALUES_PATTERN);
     InitKeyValues = reinterpret_cast<InitKeyValuesFn>(func_address);
-}
-
-void Hooker::FindLoadFromBuffer()
-{
-    auto func_address = PatternFinder::FindPatternInModule("client_panorama_client.so",
-	(unsigned char*)"\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x49\x89\xD4\x53\x48\x83\xEC\x78\x48",
-	"xxxxxxxxxxxxxxxxxxxxx");
-    LoadFromBuffer = reinterpret_cast<LoadFromBufferFn>(func_address);
-}
-
-void Hooker::FindOverridePostProcessingDisable()
-{
-    auto bool_address = PatternFinder::FindPatternInModule("client_panorama_client.so",
-	(unsigned char*)"\x80\x3D"
-			"\x00\x00\x00\x00\x00"
-			"\x89\xB5"
-			"\x00\x00"
-			"\xFF\xFF",
-	"xx?????xx??xx");
-    bool_address = GetAbsoluteAddress(bool_address, 2, 7);
-
-    s_bOverridePostProcessingDisable = reinterpret_cast<bool*>(bool_address);
-}
-
-void Hooker::FindSDLInput()
-{
-    /*
-        0F 95 83 AC 01 00 00    setnz   byte ptr [rbx+1ACh]
-        E8 E2 B7 FF FF          call    _memcpy
-        E8 FD D8 02 00          call    LauncherMgrCreateFunc <------
-     */
-    uintptr_t startAddr = PatternFinder::FindPatternInModule("launcher_client.so",
-	(unsigned char*)"\x0F\x95\x83"
-			"\x00\x00\x00\x00"
-			"\xE8"
-			"\x00\x00\x00\x00"
-			"\xE8",
-	"xxx????x????x");
-    auto createFunc = reinterpret_cast<ILauncherMgrCreateFn>(GetAbsoluteAddress(startAddr + 12, 1, 5));
-    launcherMgr = createFunc();
-}
-
-void Hooker::FindSetNamedSkybox()
-{
-    //55 4C 8D 05 ?? ?? ?? ?? 48 89 E5
-    // xref for "skybox/%s%s"
-    auto func_address = PatternFinder::FindPatternInModule("engine_client.so",
-	(unsigned char*)"\x55\x4C\x8D\x05"
-			"\x00\x00\x00\x00" //??
-			"\x48\x89\xE5",
-	"xxxx????xxx");
-
-    SetNamedSkyBox = reinterpret_cast<SetNamedSkyBoxFn>(func_address);
 }
 
 void Hooker::FindPanelArrayOffset()

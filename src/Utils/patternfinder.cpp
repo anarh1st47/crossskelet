@@ -11,25 +11,6 @@ inline bool Compare(const unsigned char* pData, const unsigned char* bMask, cons
 	return (*szMask) == 0;
 }
 
-uintptr_t PatternFinder::FindPattern(uintptr_t dwAddress, uintptr_t dwLen, unsigned char* bMask, const char* szMask)
-{
-	for (uintptr_t i = 0; i < dwLen; i++)
-		if (Compare((unsigned char*)(dwAddress + i), bMask, szMask))
-			return (uintptr_t)(dwAddress + i);
-
-	return 0;
-}
-
-uintptr_t PatternFinder::FindPatternInModule(const char* moduleName, unsigned char* bMask, const char* szMask)
-{
-	uintptr_t baseAddress;
-	size_t memSize;
-
-	if (!Hooker::GetLibraryInformation(moduleName, &baseAddress, &memSize))
-		return 0;
-	return FindPattern(baseAddress, memSize, bMask, szMask);
-}
-
 
 /*
      * @brief Scan for a given byte pattern on a module
@@ -38,6 +19,7 @@ uintptr_t PatternFinder::FindPatternInModule(const char* moduleName, unsigned ch
      * @param signature IDA-style byte array pattern
      *
      * @returns Address of the first occurence
+	 * Thanks MarkHC
      */
 std::uint8_t* PatternFinder::PatternScan(char* module, const char* signature)
 {

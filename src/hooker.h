@@ -5,6 +5,7 @@
 #ifndef WIN32
 #include <sys/mman.h>
 #include <link.h>
+#define __thiscall
 #endif
 #include "Utils/patternfinder.h"
 #include "Utils/recvproxyhook.h"
@@ -12,9 +13,6 @@
 #include "Utils/vmt.h"
 #include "Utils/util.h"
 #include "interfaces.h"
-#ifndef WIN32
-#define __thiscall
-#endif
 
 struct dlinfo_t
 {
@@ -32,16 +30,8 @@ namespace Hooker
 	void FindIClientMode();
 	void FindGlobalVars();
 	void FindCInput();
-	void FindPlayerResource();
-	void FindGameRules();
 	void FindViewRender();
-	void FindPrediction();
-	void FindSurfaceDrawing();
 	void FindGetLocalClient();
 	void FindInitKeyValues();
-	void FindLoadFromBuffer();
-	void FindOverridePostProcessingDisable();
-	void FindSDLInput();
-	void FindSetNamedSkybox();
 	void FindPanelArrayOffset();
 }

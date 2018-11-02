@@ -49,9 +49,7 @@ inline VMT* launcherMgrVMT;
 inline VMT* engineVGuiVMT;
 
 inline InitKeyValuesFn InitKeyValues;
-inline LoadFromBufferFn LoadFromBuffer;
 
-inline SetNamedSkyBoxFn SetNamedSkyBox;
 
 inline int* nPredictionRandomSeed;
 inline CMoveData* g_MoveData;

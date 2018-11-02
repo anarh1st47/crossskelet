@@ -1,4 +1,5 @@
 #include "hooks.h"
+#include "../Hacks/bhop.h"
 
 using CreatemoveFn = bool(__thiscall*)(void*, float, CUserCmd*);
 

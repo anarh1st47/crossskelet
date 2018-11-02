@@ -4,14 +4,13 @@
 #include "../interfaces.h"
 #include "../hooker.h"
 #include "../GUI/gui.h"
-#include "../Hacks/NoFog.h"
 
-enum class Indexes : int
+enum class Indexes : int // probably we should add +1(2nd destructor) for linux but im not sure
 {
 #ifdef WIN32
-    SetKeyCodeState = 91, // linux 92
-	CreateMove = 24, // linux 25
-	PanelTraverse = 41 // linux 42
+    SetKeyCodeState = 91,
+	CreateMove = 24,
+	PanelTraverse = 41
 #else
     SetKeyCodeState = 92,
     CreateMove = 25,
@@ -21,15 +20,10 @@ enum class Indexes : int
 };
 
 
-//typedef void (*FrameStageNotifyFn) (void*, ClientFrameStage_t);
 using FrameStageNotifyFn = void(__thiscall*)(IBaseClientDLL*, ClientFrameStage_t);
-//typedef void (*SetKeyCodeStateFn) (void*, ButtonCode_t, bool);
 using SetKeyCodeStateFn = void(__thiscall*)(void*, ButtonCode_t, bool);
-//typedef void (*BeginFrameFn) (void*, float);
 using BeginFrameFn = void(__thiscall*)(void*, float);
-//typedef void (*PaintFn) (void*, PaintMode_t);
 using PaintFn =  void(__thiscall*)(void*, PaintMode_t);
-//typedef void (*LockCursorFn) (void*);
 using LockCursorFn = void(__thiscall*)(void*);
 
 struct Hooks // with namespace we cannot use thiscall
@@ -50,8 +44,7 @@ struct Hooks // with namespace we cannot use thiscall
 
 namespace CreateMove
 {
-	inline bool sendPacket;
-	inline QAngle lastTickViewAngles;
+	inline bool sendPacket; // probably i'll grabb it
 }
 
 namespace OverrideView
@@ -63,15 +56,4 @@ namespace SetKeyCodeState
 {
 	inline bool shouldListen;
 	inline ButtonCode_t* keyOutput;
-}
-
-
-
-namespace BunnyHop
-{
-	void OnCreateMove(CUserCmd* cmd);
-}
-
-namespace Visuals {
-	void PaintTraverse();
 }
