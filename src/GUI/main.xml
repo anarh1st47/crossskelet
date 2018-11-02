@@ -16,7 +16,7 @@ R"zk1sakz(
     var updateConVarToggleButton = function (convarname) {
       var elToggle = $.GetContextPanel().FindChildInLayoutFile( convarname );
       GameInterfaceAPI.SetSettingString( convarname, elToggle.checked ? '1' : '0' );
-    }
+    };
   </script>
 
   <Panel class='Main mainmenu-content__container' style='width: 700px; height: 500px; horizontal-align: right; vertical-align: center; background-color: gradient( linear, 0% 0%, 0% 100%, from( #1e2a38dd ), to( #19232fdd ) );'>
@@ -40,16 +40,10 @@ R"zk1sakz(
             </ToggleButton>
           </Panel>
 
-            <CSGOSettingsSlider text="example"  max="100" min="0">
-              <Panel class="left-right-flow vertical-center">
-                <Label class="" id="Title"/>
-                <Slider class="HorizontalSlider" direction="horizontal" id="Slider"/>
-                <Label id="Value" />
-              </Panel>
-            </CSGOSettingsSlider>
-
-
-          </Panel>
+          
+          <CSGOSettingsSlider text="example" max="8" min="0.05" displayprecision="2" convar="skele_example_slider"/>
+          <CSGOSettingsSlider text="example" max="8" min="0.05" displayprecision="2" convar="sensitivity"/>
+        </Panel>
     </Panel>
 </root>
 

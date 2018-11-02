@@ -13,11 +13,15 @@ void __thiscall Hooks::PaintTraverse(void* t, VPANEL p, bool forceRepaint, bool 
 		if (!strcmp(panelName, "FocusOverlayPanel"))
 			panelId = p;
 	}
+    
 	else if (panelId == p) {
 		if (!Settings::Visuals::pFont)
 			Settings::Visuals::pFont = Draw::CreateFontt("tahoma", 15);
 		if (cvar->FindVar("skele_enable_esp")->GetInt())
 			Visuals::PaintTraverse();
 		Draw::Text(10, 10, "CrossSkelet", Settings::Visuals::pFont, Color(255, 0, 0, 255));
+		auto skel = cvar->FindVar("skele_example_slider");
+		auto sens = cvar->FindVar("sensitivity");
+		_asm nop;
 	}
 }
