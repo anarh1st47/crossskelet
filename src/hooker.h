@@ -25,6 +25,7 @@ struct dlinfo_t
 
 namespace Hooker
 {
+	inline GetLocalClientFn GetLocalClient;
 	bool GetLibraryInformation(const char* library, uintptr_t* address, size_t* size);
 	void InitializeVMHooks();
 	bool HookRecvProp(const char* className, const char* propertyName, std::unique_ptr<RecvPropHook>& recvPropHook);

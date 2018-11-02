@@ -40,5 +40,12 @@ namespace Settings
 	{
 		inline bool enabled;
 	}
-	bool RegisterConVars();
+
+	namespace Visuals
+	{
+	    inline HFont pFont;
 	}
+	bool RegisterConVars();
+}
+
+

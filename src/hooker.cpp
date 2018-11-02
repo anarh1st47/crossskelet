@@ -30,7 +30,6 @@ RecvVarProxyFn fnSequenceProxyFn;
 StartDrawingFn StartDrawing;
 FinishDrawingFn FinishDrawing;
 
-GetLocalClientFn GetLocalClient;
 
 std::vector<dlinfo_t> libraries;
 

@@ -21,21 +21,21 @@ R"zk1sakz(
             </Button>
           </Panel>
           <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <Label text="Enable ESP"/>
+            <Label text="Chicken ESP"/>
           </Panel>
           <Panel style='horizontal-align: left; margin-bottom: 20px;'>
             <CSGOSettingsEnumDropDown class="PopupButton White" convar="skele_enable_esp">
-              <Label text="#GameUI_No" value="0" id ="ppOff"/>
-              <Label text="#GameUI_Yes" value="1" id ="ppOn"/>
+              <Label text="#GameUI_No" value="0" id ="espOff"/>
+              <Label text="#GameUI_Yes" value="1" id ="espOn"/>
             </CSGOSettingsEnumDropDown>
           </Panel>
           <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <Label text="No Post Processing"/>
+            <Label text="Bunny Hop"/>
           </Panel>
           <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <CSGOSettingsEnumDropDown class="PopupButton White" convar="skele_disable_pp">
-              <Label text="#GameUI_No" value="0" id ="fogOff"/>
-              <Label text="#GameUI_Yes" value="1" id ="fogOn"/>
+            <CSGOSettingsEnumDropDown class="PopupButton White" convar="skele_enable_bhop">
+              <Label text="#GameUI_No" value="0" id ="bhopOff"/>
+              <Label text="#GameUI_Yes" value="1" id ="bhopOn"/>
             </CSGOSettingsEnumDropDown>
           </Panel>
         </Panel>

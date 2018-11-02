@@ -14,10 +14,10 @@ void __thiscall Hooks::PaintTraverse(void* t, VPANEL p, bool forceRepaint, bool 
 			panelId = p;
 	}
 	else if (panelId == p) {
-		if (!Visuals::pFont)
-			Visuals::pFont = Draw::CreateFontt("tahoma", 15);
+		if (!Settings::Visuals::pFont)
+			Settings::Visuals::pFont = Draw::CreateFontt("tahoma", 15);
 		if (cvar->FindVar("skele_enable_esp")->GetInt())
 			Visuals::PaintTraverse();
-		Draw::Text(10, 10, "CrossSkelet", Visuals::pFont, Color(255, 0, 0, 255));
+		Draw::Text(10, 10, "CrossSkelet", Settings::Visuals::pFont, Color(255, 0, 0, 255));
 	}
 }

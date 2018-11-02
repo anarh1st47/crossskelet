@@ -1,4 +1,5 @@
-#include "Visuals.h"
+#include "../Hooks/hooks.h"
+#include "../settings.h"
 
 void Visuals::PaintTraverse() {
     if (!engine->IsInGame()) 
@@ -16,6 +17,6 @@ void Visuals::PaintTraverse() {
 		auto orig = ent->GetVecOrigin();
 		Vector out;
 		debugOverlay->ScreenPosition(orig, out);
-		Draw::Text(out.x, out.y, "chicken", pFont, Color(255, 0,0,255));
+		Draw::Text(out.x, out.y, "chicken", Settings::Visuals::pFont, Color(255, 0,0,255));
 	}
 }

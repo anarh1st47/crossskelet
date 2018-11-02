@@ -64,3 +64,14 @@ namespace SetKeyCodeState
 	inline bool shouldListen;
 	inline ButtonCode_t* keyOutput;
 }
+
+
+
+namespace BunnyHop
+{
+	void OnCreateMove(CUserCmd* cmd);
+}
+
+namespace Visuals {
+	void PaintTraverse();
+}

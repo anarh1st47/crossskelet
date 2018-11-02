@@ -54,17 +54,16 @@ This looks like garbage lol
 
 
 ## Thanks
-LWSS and Fuzion contributors - Skeletux and Fuzion projects
-McSwaggens, luk1337, AnterGhost, nvllvs, aixxe and another AimTux contributors.
-Atex - linux basehook project
-MarkHC and CSGOSimple contributors - CSGOSimple project
-vladislavik36 - some help with CrossSkelet
+* LWSS and Fuzion contributors - Skeletux and Fuzion projects, also LWSS gives me some help in pm
+* McSwaggens, luk1337, AnterGhost, nvllvsand another AimTux contributors.
+* Atex - linux basehook project
+* aixxe - cstrike-basehook-linux project
+* MarkHC and CSGOSimple contributors - CSGOSimple project
+* vladislavik36 - some help with CrossSkelet
 
 ## TODO
 
 (todo before release)
-* Merge pattern scanners
-* Verify usercmd
 * Menu redisign
 * Refactoring
 
