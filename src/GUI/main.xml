@@ -17,7 +17,7 @@ R"zk1sakz(
           </Panel>
           <Panel style='horizontal-align: left; margin-bottom: 20px;'>
             <Button onactivate='$.Msg("2nd Button Pressed");$.DispatchEvent( "PlaySoundEffect", "mainmenu_press_GO", "MOUSE" );'>
-              <Label text='Babbys 2nd Btn' style='background-color: grey;'/>
+              <Label text='Babbys 2nd Btn' style='background-color: black;'/>
             </Button>
           </Panel>
           <Panel style='horizontal-align: left; margin-bottom: 20px;'>
@@ -30,44 +30,12 @@ R"zk1sakz(
             </CSGOSettingsEnumDropDown>
           </Panel>
           <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <Label text="No Fog"/>
+            <Label text="No Post Processing"/>
           </Panel>
           <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <CSGOSettingsEnumDropDown class="PopupButton White" convar="skele_disable_fog">
+            <CSGOSettingsEnumDropDown class="PopupButton White" convar="skele_disable_pp">
               <Label text="#GameUI_No" value="0" id ="fogOff"/>
               <Label text="#GameUI_Yes" value="1" id ="fogOn"/>
-            </CSGOSettingsEnumDropDown>
-          </Panel>
-          <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <Label text="Custom Skybox"/>
-          </Panel>
-          <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <CSGOSettingsEnumDropDown class="PopupButton White" convar="skele_skybox_enabled">
-              <Label text="#GameUI_No" value="0" id ="fogOff"/>
-              <Label text="#GameUI_Yes" value="1" id ="fogOn"/>
-            </CSGOSettingsEnumDropDown>
-          </Panel>
-          <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <CSGOSettingsEnumDropDown class="PopupButton White" convar="skele_skybox_name">
-              <Label text="Tibet" value="cs_tibet" id="sky2"/>
-              <Label text="Embassy" value="embassy" id="sky3"/>
-              <Label text="Italy" value="italy" id="sky4"/>
-              <Label text="Jungle" value="jungle" id="sky5"/>
-              <Label text="Office" value="office" id="sky6"/>
-              <Label text="Nuke" value="nukeblank" id="sky7"/>
-              <Label text="Venice" value="sky_venice" id="sky8"/>
-              <Label text="hdr1" value="sky_cs15_daylight01_hdr" id="sky9"/>
-              <Label text="hdr2" value="sky_cs15_daylight02_hdr" id="sky10"/>
-              <Label text="hdr3" value="sky_cs15_daylight03_hdr" id="sky11"/>
-              <Label text="hdr4" value="sky_cs15_daylight04_hdr" id="sky12"/>
-              <Label text="Cloudy" value="sky_csgo_cloudy01" id="sky13"/>
-              <Label text="Night" value="sky_csgo_night_flat" id="sky14"/>
-              <Label text="Night2" value="sky_csgo_night02" id="sky15"/>
-              <Label text="Night2b" value="sky_csgo_night02b" id="sky16"/>
-              <Label text="Day" value="sky_day02_05" id="sky17"/>
-              <Label text="Day-hdr" value="sky_day02_05_hdr" id="sky18"/>
-              <Label text="Dust" value="sky_dust" id="sky19"/>
-              <Label text="Vietnam" value="vietnam"  id="sky20"/>
             </CSGOSettingsEnumDropDown>
           </Panel>
         </Panel>

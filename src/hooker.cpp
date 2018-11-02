@@ -36,7 +36,7 @@ std::vector<dlinfo_t> libraries;
 
 panorama::PanelArray* panelArray;
 
-// taken form aixxe's(Atex?) cstrike-basehook-linux
+// taken form aixxe's cstrike-basehook-linux
 bool Hooker::GetLibraryInformation(const char* library, uintptr_t* address, size_t* size)
 {
 #ifdef WIN32
@@ -95,15 +95,15 @@ bool Hooker::HookRecvProp(const char* className, const char* propertyName, std::
 {
     // FIXME: Does not search recursively.. yet.
     // Recursion is a meme, stick to reddit mcswaggens.
-    for (ClientClass* pClass = client->GetAllClasses(); pClass; pClass = pClass->m_pNext)
+    for (auto pClass = client->GetAllClasses(); pClass; pClass = pClass->m_pNext)
     {
 	if (strcmp(pClass->m_pNetworkName, className) == 0)
 	{
-	    RecvTable* pClassTable = pClass->m_pRecvTable;
+	    auto pClassTable = pClass->m_pRecvTable;
 
 	    for (int nIndex = 0; nIndex < pClassTable->m_nProps; nIndex++)
 	    {
-		RecvProp* pProp = &pClassTable->m_pProps[nIndex];
+		auto pProp = &pClassTable->m_pProps[nIndex];
 
 		if (!pProp || strcmp(pProp->m_pVarName, propertyName) != 0)
 		    continue;
@@ -168,7 +168,7 @@ void Hooker::FindPlayerResource()
 
 void Hooker::FindGameRules()
 {
-    uintptr_t instruction_addr = PatternFinder::FindPatternInModule("client_panorama_client.so",
+    auto instruction_addr = PatternFinder::FindPatternInModule("client_panorama_client.so",
 	(unsigned char*)"\x48\x8B\x05"
 			"\x00\x00\x00\x00"
 			"\x48\x8B\x38\x0F\x84",
@@ -202,17 +202,17 @@ void Hooker::FindViewRender()
 
 void Hooker::FindPrediction()
 {
-    uintptr_t seed_instruction_addr = PatternFinder::FindPatternInModule("client_panorama_client.so",
+    auto seed_instruction_addr = PatternFinder::FindPatternInModule("client_panorama_client.so",
 	(unsigned char*)"\x48\x8B\x05"
 			"\x00\x00\x00\x00"
 			"\x8B\x38\xE8"
 			"\x00\x00\x00\x00"
 			"\x89\xC7",
 	"xxx????xxx????xx");
-    uintptr_t helper_instruction_addr = PatternFinder::FindPatternInModule("client_panorama_client.so",
+    auto helper_instruction_addr = PatternFinder::FindPatternInModule("client_panorama_client.so",
 	(unsigned char*)"\x00\x48\x89\x3D\x00\x00\x00\x00\xC3",
 	"xxxx????x");
-    uintptr_t movedata_instruction_addr = PatternFinder::FindPatternInModule("client_panorama_client.so",
+    auto movedata_instruction_addr = PatternFinder::FindPatternInModule("client_panorama_client.so",
 	(unsigned char*)"\x48\x8B\x0D"
 			"\x00\x00\x00\x00"
 			"\x4C\x89\xEA",
@@ -225,12 +225,12 @@ void Hooker::FindPrediction()
 
 void Hooker::FindSurfaceDrawing()
 {
-    uintptr_t start_func_address = PatternFinder::FindPatternInModule("vguimatsurface_client.so",
+    auto start_func_address = PatternFinder::FindPatternInModule("vguimatsurface_client.so",
 	(unsigned char*)"\x55\x48\x89\xE5\x53\x48\x89\xFB\x48\x83\xEC\x28\x80\x3D",
 	"xxxxxxxxxxxxxx");
     StartDrawing = reinterpret_cast<StartDrawingFn>(start_func_address);
 
-    uintptr_t finish_func_address = PatternFinder::FindPatternInModule("vguimatsurface_client.so",
+    auto finish_func_address = PatternFinder::FindPatternInModule("vguimatsurface_client.so",
 	(unsigned char*)"\x55\x31\xFF\x48\x89\xE5\x53",
 	"xxxxxxx");
     FinishDrawing = reinterpret_cast<FinishDrawingFn>(finish_func_address);
@@ -238,13 +238,13 @@ void Hooker::FindSurfaceDrawing()
 
 void Hooker::FindGetLocalClient()
 {
-    uintptr_t GetLocalPlayer = reinterpret_cast<uintptr_t>(getvtable(engine)[12]);
+    auto GetLocalPlayer = reinterpret_cast<uintptr_t>(getvtable(engine)[12]);
     GetLocalClient = reinterpret_cast<GetLocalClientFn>(GetAbsoluteAddress(GetLocalPlayer + 9, 1, 5));
 }
 
 void Hooker::FindInitKeyValues()
 {
-    uintptr_t func_address = PatternFinder::FindPatternInModule("client_panorama_client.so",
+    auto func_address = PatternFinder::FindPatternInModule("client_panorama_client.so",
 	(unsigned char*)"\x81\x27\x00\x00\x00\xFF\x55\x31\xC0\x48\x89\xE5\x5D",
 	"xxxxxxxxxxxxx");
     InitKeyValues = reinterpret_cast<InitKeyValuesFn>(func_address);
@@ -252,7 +252,7 @@ void Hooker::FindInitKeyValues()
 
 void Hooker::FindLoadFromBuffer()
 {
-    uintptr_t func_address = PatternFinder::FindPatternInModule("client_panorama_client.so",
+    auto func_address = PatternFinder::FindPatternInModule("client_panorama_client.so",
 	(unsigned char*)"\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x49\x89\xD4\x53\x48\x83\xEC\x78\x48",
 	"xxxxxxxxxxxxxxxxxxxxx");
     LoadFromBuffer = reinterpret_cast<LoadFromBufferFn>(func_address);
@@ -260,7 +260,7 @@ void Hooker::FindLoadFromBuffer()
 
 void Hooker::FindOverridePostProcessingDisable()
 {
-    uintptr_t bool_address = PatternFinder::FindPatternInModule("client_panorama_client.so",
+    auto bool_address = PatternFinder::FindPatternInModule("client_panorama_client.so",
 	(unsigned char*)"\x80\x3D"
 			"\x00\x00\x00\x00\x00"
 			"\x89\xB5"
@@ -286,7 +286,7 @@ void Hooker::FindSDLInput()
 			"\x00\x00\x00\x00"
 			"\xE8",
 	"xxx????x????x");
-    ILauncherMgrCreateFn createFunc = reinterpret_cast<ILauncherMgrCreateFn>(GetAbsoluteAddress(startAddr + 12, 1, 5));
+    auto createFunc = reinterpret_cast<ILauncherMgrCreateFn>(GetAbsoluteAddress(startAddr + 12, 1, 5));
     launcherMgr = createFunc();
 }
 
@@ -294,7 +294,7 @@ void Hooker::FindSetNamedSkybox()
 {
     //55 4C 8D 05 ?? ?? ?? ?? 48 89 E5
     // xref for "skybox/%s%s"
-    uintptr_t func_address = PatternFinder::FindPatternInModule("engine_client.so",
+    auto func_address = PatternFinder::FindPatternInModule("engine_client.so",
 	(unsigned char*)"\x55\x4C\x8D\x05"
 			"\x00\x00\x00\x00" //??
 			"\x48\x89\xE5",
@@ -311,6 +311,6 @@ void Hooker::FindPanelArrayOffset()
 	   55                      push    rbp
 	   48 81 C7 B8 01 00 00    add     rdi, 1B8h <--------
 	 */
-    uintptr_t IsValidPanelPointer = reinterpret_cast<uintptr_t>(getvtable(panoramaEngine->AccessUIEngine())[35]);
+    auto IsValidPanelPointer = reinterpret_cast<uintptr_t>(getvtable(panoramaEngine->AccessUIEngine())[35]);
     panelArray = *(panorama::PanelArray**)(((uintptr_t)panoramaEngine->AccessUIEngine()) + *(unsigned int*)(IsValidPanelPointer + 4) + 8); // +8 for vtable
 }

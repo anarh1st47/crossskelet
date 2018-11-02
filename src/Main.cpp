@@ -41,17 +41,11 @@ void MainThread()
 
     inputInternalVMT->HookVM(Hooks::SetKeyCodeState, (int)Indexes::SetKeyCodeState);
     inputInternalVMT->ApplyVMT();
-    //clientVMT->HookVM(Hooks::CreateMove, 22);
-    //clientVMT->ApplyVMT();
-    //clientModeVMT->HookVM((void*)Hooks::CreateMove, (int)Indexes::CreateMove);
-    //clientModeVMT->ApplyVMT();
+    clientModeVMT->HookVM((void*)Hooks::CreateMove, (int)Indexes::CreateMove);
+    clientModeVMT->ApplyVMT();
 
 	panelVMT->HookVM((void*)Hooks::PaintTraverse, (int)Indexes::PanelTraverse);
     panelVMT->ApplyVMT();
-    //launcherMgrVMT->ApplyVMT();
-
-	//materialVMT->HookVM( Hooks::BeginFrame, 42 );
-	//materialVMT->ApplyVMT();
 
 	surfaceVMT->HookVM( Hooks::LockCursor, 67 );
 	surfaceVMT->ApplyVMT();

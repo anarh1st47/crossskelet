@@ -32,7 +32,7 @@ void Interfaces::DumpInterfaces()
 {
 #ifdef WIN32
 //lol
-	#else
+#else
 	std::stringstream ss;
 
 	std::vector<const char*> modules;
