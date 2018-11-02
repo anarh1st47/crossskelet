@@ -1,27 +1,27 @@
 R"zk1sakz(
 <root>
-    <styles>
-        <include src="file://{resources}/styles/csgostyles.css" />
-        <include src="file://{resources}/styles/settings/settings.css" />
-        <include src="file://{resources}/styles/debugger.css" />
-    </styles>
-    <Panel class='Main' style='width: 700px; height: 500px; horizontal-align: center; vertical-align: center; background-color: black;'>
-      <CSGOBlurTarget id="SkeleMainMenuCore" blurrects="ChatContainer mainmenu-sidebar__blur-target CSGOLoadingScreen JsMainMenuNavBar eom-winner">
+  <styles>
+    <include src="file://{resources}/styles/csgostyles.css" />
+    <include src="file://{resources}/styles/settings/settings.css" />
+    <include src="file://{resources}/styles/mainmenu.css"/>
+  </styles>
 
-        <Label text='Skeletux' style='horizontal-align: center; vertical-align: top; font-size: 24px; color: red; text-decoration: underline;'/>
+  <scripts>
+    <include src="file://{resources}/scripts/settingsmenu.js" />
+    <include src="file://{resources}/scripts/settingsmenu_shared.js" />
+  </scripts>
+
+  <Panel class='Main mainmenu-content__container' style='width: 700px; height: 500px; horizontal-align: right; vertical-align: center; background-color: gradient( linear, 0% 0%, 0% 100%, from( #1e2a38dd ), to( #19232fdd ) );'>
+        <Label text='CrossSkelet : public Skeletux' style='horizontal-align: center; vertical-align: top; font-size: 24px; color: grey;'/>
         <Panel style='vertical-align: middle; horizontal-align: left; flow-children: down;'>
-          <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <Button style='width: 300px; height: 80px;' onactivate='$.Msg("1st Button Pressed");$.DispatchEvent( "PlaySoundEffect", "mainmenu_press_GO", "MOUSE" );'>
-              <Label text='Babbys 1st Btn' style='background-color: grey;'/>
-            </Button>
+          <Panel style='horizontal-align: left;margin-bottom: 20px; flow-children: right;'>
+            <TextButton class="PopupButton" text="button1" onactivate="SteamOverlayAPI.OpenURL( 'https://unknowncheats.me/' );" />
+            <TextButton class="PopupButton" text="button2" onactivate="SteamOverlayAPI.CopyTextToClipboard('rip ur buffer :trollface:');$.Msg('button pressed')" />
           </Panel>
+        
+          
           <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <Button onactivate='$.Msg("2nd Button Pressed");$.DispatchEvent( "PlaySoundEffect", "mainmenu_press_GO", "MOUSE" );'>
-              <Label text='Babbys 2nd Btn' style='background-color: black;'/>
-            </Button>
-          </Panel>
-          <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <Label text="Chicken ESP"/>
+              <Label text="Chicken ESP"/>
           </Panel>
           <Panel style='horizontal-align: left; margin-bottom: 20px;'>
             <CSGOSettingsEnumDropDown class="PopupButton White" convar="skele_enable_esp">
@@ -30,16 +30,11 @@ R"zk1sakz(
             </CSGOSettingsEnumDropDown>
           </Panel>
           <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <Label text="Bunny Hop"/>
-          </Panel>
-          <Panel style='horizontal-align: left; margin-bottom: 20px;'>
-            <CSGOSettingsEnumDropDown class="PopupButton White" convar="skele_enable_bhop">
-              <Label text="#GameUI_No" value="0" id ="bhopOff"/>
-              <Label text="#GameUI_Yes" value="1" id ="bhopOn"/>
-            </CSGOSettingsEnumDropDown>
+            <ToggleButton id="id-chicken-esp" data-category="skele" class="PopupButton Row" onactivate="GameInterfaceAPI.SetConVarIntValue('skele_enable_esp', 0);" >
+              <Label id="" text="Chicken ESP" />
+            </ToggleButton>
           </Panel>
         </Panel>
-      </CSGOBlurTarget>
     </Panel>
 </root>
 
