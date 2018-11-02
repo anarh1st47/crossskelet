@@ -5,23 +5,13 @@ void MainThread()
 	Interfaces::FindInterfaces();
 	//Interfaces::DumpInterfaces();
 
-	//Hooker::FindSetNamedSkybox();
+
 	Hooker::FindViewRender();
-	//Hooker::FindSDLInput();
 	Hooker::InitializeVMHooks();
 	Hooker::FindIClientMode();
 	Hooker::FindGlobalVars();
 	Hooker::FindCInput();
-	//Hooker::FindPlayerResource();
-	//Hooker::FindGameRules();
-	//Hooker::FindPrediction();
-	//Hooker::FindSurfaceDrawing();
 	Hooker::FindGetLocalClient();
-	//Hooker::FindInitKeyValues();
-	//Hooker::FindLoadFromBuffer();
-	//Hooker::FindVstdlibFunctions();
-	//Hooker::FindOverridePostProcessingDisable();
-	//Hooker::FindPanelArrayOffset();
 
 	if (!Settings::RegisterConVars())
 	{
@@ -32,12 +22,6 @@ void MainThread()
 
 	//clientVMT->HookVM( Hooks::FrameStageNotify, 37 );
 	//clientVMT->ApplyVMT();
-
-    //clientModeVMT->HookVM( Hooks::ShouldDrawFog, 18 );
-    //clientModeVMT->ApplyVMT();
-
-    //engineVGuiVMT->HookVM( Hooks::Paint, 41 );
-    //engineVGuiVMT->ApplyVMT();
 
     inputInternalVMT->HookVM(Hooks::SetKeyCodeState, (int)Indexes::SetKeyCodeState);
     inputInternalVMT->ApplyVMT();

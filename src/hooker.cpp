@@ -180,19 +180,7 @@ void Hooker::FindGameRules()
 void Hooker::FindViewRender()
 {
 #ifndef WIN32 
-    uintptr_t func_address = PatternFinder::FindPatternInModule("client_panorama_client.so",
-	(unsigned char*)"\x48\x8D\x05"
-			"\x00\x00\x00\x00"
-			"\x55\xF3\x0F\x10"
-			"\x00\x00\x00\x00\x00"
-			"\x48\x89\x05"
-			"\x00\x00\x00\x00"
-			"\x48\x8B\x05"
-			"\x00\x00\x00\x00"
-			"\x48\x89\xE5\x48\x8D\x0D"
-			"\x00\x00\x00\x00"
-			"\x0F\x57\xC9\xC6",
-	"xxx????xxxx?????xxx????xxx????xxxxxx????xxxx");
+	auto func_address = PatternFinder::PatternScan("client_panorama_client.so", "48 8D 05 ?? ?? ?? ?? 55 F3 0F 10 ?? ?? ?? ?? ?? 48 89 05 ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 89 E5 48 8D 0D ?? ?? ?? ?? 0F 57 C9 C6");
 
     viewRender = reinterpret_cast<CViewRender*>(GetAbsoluteAddress(func_address + 50, 3, 7));
 #else
