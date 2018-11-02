@@ -14,24 +14,34 @@ R"zk1sakz(
   <Panel class='Main mainmenu-content__container' style='width: 700px; height: 500px; horizontal-align: right; vertical-align: center; background-color: gradient( linear, 0% 0%, 0% 100%, from( #1e2a38dd ), to( #19232fdd ) );'>
         <Label text='CrossSkelet : public Skeletux' style='horizontal-align: center; vertical-align: top; font-size: 24px; color: grey;'/>
         <Panel class="horizontal-separator"/>
-        <Panel style='vertical-align: middle; horizontal-align: left; flow-children: down;'>
-          <Panel style='horizontal-align: left;margin-bottom: 20px; flow-children: right;'>
+        <Panel style='vertical-align: top; horizontal-align: left; flow-children: down;'>
+          <Panel style='horizontal-align: left;margin-bottom: 10px; flow-children: right;'>
             <TextButton class="PopupButton" text="button1" onactivate="SteamOverlayAPI.OpenURL( 'https://unknowncheats.me/' );" />
             <TextButton class="PopupButton" text="button2" onactivate="SteamOverlayAPI.CopyTextToClipboard('rip ur buffer :trollface:');$.Msg('button pressed')" />
           </Panel>
           <Panel class="horizontal-separator"/>
        
-          <Panel style='horizontal-align: left; margin-bottom: 20px;'>
+          <Panel style='horizontal-align: left; margin-bottom: 10px;'>
             <ToggleButton id="id-bhop" data-category="skele" class="PopupButton Row" onactivate="GameInterfaceAPI.SetConVarIntValue('skele_enable_bhop', 0);" >
               <Label id="" text="BunnyHop" />
             </ToggleButton>
           </Panel>
-          <Panel style='horizontal-align: left; margin-bottom: 20px;'>
+          <Panel style='horizontal-align: left; margin-bottom: 10px;'>
             <ToggleButton id="id-chicken-esp" data-category="skele" class="PopupButton Row" onactivate="GameInterfaceAPI.SetConVarIntValue('skele_enable_esp', 0);" >
               <Label id="" text="Chicken ESP" />
             </ToggleButton>
           </Panel>
-        </Panel>
+
+            <CSGOSettingsSlider text="example"  max="100" min="0">
+              <Panel class="left-right-flow vertical-center">
+                <Label class="" id="Title"/>
+                <Slider class="HorizontalSlider" direction="horizontal" id="Slider"/>
+                <Label id="Value" />
+              </Panel>
+            </CSGOSettingsSlider>
+
+
+          </Panel>
     </Panel>
 </root>
 
