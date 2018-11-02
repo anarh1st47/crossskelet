@@ -9,7 +9,15 @@ R"zk1sakz(
   <scripts>
     <include src="file://{resources}/scripts/settingsmenu.js" />
     <include src="file://{resources}/scripts/settingsmenu_shared.js" />
+    <include src="file://{resources}/scripts/buymenu.js" />
   </scripts>
+
+  <script>
+    var updateConVarToggleButton = function (convarname) {
+      var elToggle = $.GetContextPanel().FindChildInLayoutFile( convarname );
+      GameInterfaceAPI.SetSettingString( convarname, elToggle.checked ? '1' : '0' );
+    }
+  </script>
 
   <Panel class='Main mainmenu-content__container' style='width: 700px; height: 500px; horizontal-align: right; vertical-align: center; background-color: gradient( linear, 0% 0%, 0% 100%, from( #1e2a38dd ), to( #19232fdd ) );'>
         <Label text='CrossSkelet : public Skeletux' style='horizontal-align: center; vertical-align: top; font-size: 24px; color: grey;'/>
@@ -22,12 +30,12 @@ R"zk1sakz(
           <Panel class="horizontal-separator"/>
        
           <Panel style='horizontal-align: left; margin-bottom: 10px;'>
-            <ToggleButton id="id-bhop" data-category="skele" class="PopupButton Row" onactivate="GameInterfaceAPI.SetConVarIntValue('skele_enable_bhop', 0);" >
+            <ToggleButton id="skele_enable_bhop" data-category="skele" class="PopupButton Row" onactivate="updateConVarToggleButton('skele_enable_bhop');" >
               <Label id="" text="BunnyHop" />
             </ToggleButton>
           </Panel>
           <Panel style='horizontal-align: left; margin-bottom: 10px;'>
-            <ToggleButton id="id-chicken-esp" data-category="skele" class="PopupButton Row" onactivate="GameInterfaceAPI.SetConVarIntValue('skele_enable_esp', 0);" >
+            <ToggleButton id="skele_enable_esp" data-category="skele" class="PopupButton Row" onactivate="updateConVarToggleButton('skele_enable_esp');" >
               <Label id="" text="Chicken ESP" />
             </ToggleButton>
           </Panel>
