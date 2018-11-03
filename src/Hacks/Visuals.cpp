@@ -1,5 +1,5 @@
 #include "../Hooks/hooks.h"
-#include "visuals.h"
+#include "Visuals.h"
 
 void Visuals::PaintTraverse() {
     if (!engine->IsInGame()) 

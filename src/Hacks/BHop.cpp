@@ -1,5 +1,5 @@
 #include "bhop.h"
-#include "../hooks/hooks.h"
+#include "../Hooks/hooks.h"
 
 //thanks MarkHC
 void BunnyHop::OnCreateMove(CUserCmd* cmd)
