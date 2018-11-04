@@ -43,7 +43,7 @@ R"zk1sakz(
           <Panel class="horizontal-separator"/>
 
           <CSGOSettingsSlider style="margin-left:15px;" text="example" max="8" min="0.05" displayprecision="2" convar="skele_example_slider"/>
-          <CSGOSettingsSlider style="margin-left:15px;" text="sensitivity" max="8" min="0.05" displayprecision="2" convar="sensitivity"/>
+          <CSGOSettingsSlider style="margin-left:15px;" text="sensetivity" max="8" min="0.05" displayprecision="2" convar="sensitivity"/>
         </Panel>
     </Panel>
 </root>
