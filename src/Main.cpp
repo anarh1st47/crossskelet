@@ -39,21 +39,15 @@ void MainThread() {
   cvar->ConsoleColorPrintf(Color(0, 225, 0, 255),
                            "\nskeletux Successfully loaded.\n");
 }
-#ifndef WIN32
-/* Entrypoint to the Library. Called when loading */
-int __attribute__((constructor)) Startup() {
-  std::thread mainThread(MainThread);
-  // The root of all suffering is attachment
-  // Therefore our little buddy must detach from this realm.
-  // Farewell my thread, may we join again some day..
-  mainThread.detach();
 
-  return 0;
-}
 /* Called when un-injecting the library */
-void __attribute__((destructor)) Shutdown() {
-#ifdef HUJ
-  cvar->FindVar("cl_mouseenable")->SetValue(1);
+void 
+#ifndef WIN32 
+__attribute__((destructor))
+#endif
+Shutdown() {
+    auto mouse = cvar->FindVar("cl_mouseenable");
+    if(mouse) mouse->SetValue(1);
 
   clientVMT->ReleaseVMT();
   clientModeVMT->ReleaseVMT();
@@ -66,12 +60,12 @@ void __attribute__((destructor)) Shutdown() {
   *s_bOverridePostProcessingDisable = false;
 
   /* Cleanup ConVars we have made */
-  for (ConVar* var : Util::createdConvars) {
+  for (auto var : Util::createdConvars) {
     cvar->UnregisterConCommand(var);
   }
   if (panoramaEngine->AccessUIEngine()->IsValidPanelPointer(GUI::skeleMain)) {
     GUI::skeleMain->RemoveAndDeleteChildren();
-    panorama::IUIPanel* parent = GUI::skeleMain->GetParent();
+    auto parent = GUI::skeleMain->GetParent();
     if (panoramaEngine->AccessUIEngine()->IsValidPanelPointer(parent)) {
       parent->RemoveChild(GUI::skeleMain);
     } else {
@@ -79,9 +73,19 @@ void __attribute__((destructor)) Shutdown() {
     }
   }
 
-  cvar->ConsoleColorPrintf(ColorRGBA(255, 0, 0),
+  cvar->ConsoleColorPrintf(Color(255, 0, 0, 255),
                            "skeletux unloaded successfully.\n");
-#endif
+}
+#ifndef WIN32
+/* Entrypoint to the Library. Called when loading */
+int __attribute__((constructor)) Startup() {
+  std::thread mainThread(MainThread);
+  // The root of all suffering is attachment
+  // Therefore our little buddy must detach from this realm.
+  // Farewell my thread, may we join again some day..
+  mainThread.detach();
+
+  return 0;
 }
 #else
 // dllmain
@@ -90,16 +94,14 @@ BOOL WINAPI DllMain(_In_ HINSTANCE hinstDll, _In_ DWORD fdwReason,
   switch (fdwReason) {
     case DLL_PROCESS_ATTACH:
       DisableThreadLibraryCalls(hinstDll);
-      CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)MainThread, hinstDll, 0,
-                   nullptr);
+      CreateThread(0, 0, (LPTHREAD_START_ROUTINE)MainThread, hinstDll, 0, 0);
       return TRUE;
     case DLL_PROCESS_DETACH:
-      // if (lpvReserved == nullptr)
-      //   return OnDllDetach();
+		Shutdown();
+		return TRUE;
       return TRUE;
     default:
       return TRUE;
   }
 }
-
 #endif
