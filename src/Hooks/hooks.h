@@ -38,7 +38,7 @@ struct Hooks // with namespace we cannot use thiscall
 	static void __fastcall Paint(void* thisptr, int, PaintMode_t mode);
 
 
-	static bool __fastcall CreateMove(void* thisptr, int, float flInputSampleTime, CUserCmd* cmd);
+	static bool __thiscall CreateMove(void* thisptr, float flInputSampleTime, CUserCmd* cmd);
 	static void __thiscall PaintTraverse(void*, VPANEL p, bool forceRepaint, bool allowForce);
 };
 
