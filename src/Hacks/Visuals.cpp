@@ -3,20 +3,19 @@
 
 void Visuals::PaintTraverse() {
     if (!engine->IsInGame()) 
-		return;
+        return;
     for (auto i = 0; i < entityList->GetHighestEntityIndex(); i++) {
-		auto ent = entityList->GetClientEntity(i);
-		if (!ent)
-			continue;
+        auto ent = entityList->GetClientEntity(i);
+        if (!ent)
+            continue;
 
-		auto client = ent->GetClientClass();
+        auto client = ent->GetClientClass();
 
-		if (client->m_ClassID != EClassIds::CChicken)
-		    continue;
+        if (client->m_ClassID != EClassIds::CChicken)
+            continue;
 
-		auto orig = ent->GetVecOrigin();
-		Vector out;
-		debugOverlay->ScreenPosition(orig, out);
-		Draw::Text(out.x, out.y, "chicken", Settings::Visuals::pFont, Color(255, 0,0,255));
-	}
+        Vector out;
+        debugOverlay->ScreenPosition(ent->GetVecOrigin(), out);
+        Draw::Text(out.x, out.y, "chicken", Settings::Visuals::pFont, Color(255, 0,0,255));
+    }
 }

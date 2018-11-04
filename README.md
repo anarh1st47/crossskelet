@@ -60,6 +60,7 @@ This looks like garbage lol
 * aixxe - cstrike-basehook-linux project
 * MarkHC and CSGOSimple contributors - CSGOSimple project
 * vladislavik36 - some help with CrossSkelet
+* disabilitor - some gui ideas
 
 ## TODO
 

@@ -4,7 +4,7 @@
 //thanks MarkHC
 void BunnyHop::OnCreateMove(CUserCmd* cmd)
 {
-	auto localplayer = (C_BasePlayer*)entityList->GetClientEntity(engine->GetLocalPlayer());
+    auto localplayer = (C_BasePlayer*)entityList->GetClientEntity(engine->GetLocalPlayer());
     if (!localplayer)
 		return;
     static auto jumped_last_tick = false;
