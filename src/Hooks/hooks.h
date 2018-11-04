@@ -5,8 +5,7 @@
 #include "../hooker.h"
 #include "../GUI/gui.h"
 
-enum class Indexes : int // probably we should add +1(2nd destructor) for linux but im not sure
-{
+enum class Indexes : int { // probably we should add +1(2nd destructor) for linux but im not sure
 #ifdef WIN32
     SetKeyCodeState = 91,
 	CreateMove = 24,
@@ -26,8 +25,7 @@ using BeginFrameFn = void(__thiscall*)(void*, float);
 using PaintFn =  void(__thiscall*)(void*, PaintMode_t);
 using LockCursorFn = void(__thiscall*)(void*);
 
-struct Hooks // with namespace we cannot use thiscall
-{
+struct Hooks { // with namespace we cannot use thiscall
 	static void __stdcall FrameStageNotify(ClientFrameStage_t stage);
 	static void __thiscall SetKeyCodeState(void* thisptr, ButtonCode_t code, bool bPressed);
 	static void __fastcall BeginFrame(void* thisptr, int, float frameTime);
@@ -42,18 +40,15 @@ struct Hooks // with namespace we cannot use thiscall
 	static void __thiscall PaintTraverse(void*, VPANEL p, bool forceRepaint, bool allowForce);
 };
 
-namespace CreateMove
-{
+namespace CreateMove {
 	inline bool sendPacket; // probably i'll grabb it
 }
 
-namespace OverrideView
-{
+namespace OverrideView {
 	inline float currentFOV;
 }
 
-namespace SetKeyCodeState
-{
+namespace SetKeyCodeState {
 	inline bool shouldListen;
 	inline ButtonCode_t* keyOutput;
 }

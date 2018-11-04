@@ -22,27 +22,22 @@
 #define __fastcall
 #endif
 
-namespace Settings
-{
+namespace Settings {
 
-	namespace SkyBox
-	{
+	namespace SkyBox {
 		inline bool enabled;
 		inline const char* name = NULL;
 	}
 
-	namespace DisablePostProcessing
-	{
+	namespace DisablePostProcessing {
 		inline bool enabled;
 	}
 
-	namespace NoFog
-	{
+	namespace NoFog {
 		inline bool enabled;
 	}
 
-	namespace Visuals
-	{
+	namespace Visuals {
 	    inline HFont pFont;
 	}
 	bool RegisterConVars();
