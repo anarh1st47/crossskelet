@@ -89,17 +89,15 @@ int __attribute__((constructor)) Startup() {
 	return 0;
 }
 #else
-// dllmain
 BOOL WINAPI DllMain(_In_ HINSTANCE hinstDll, _In_ DWORD fdwReason,
 	_In_opt_ LPVOID lpvReserved) {
 	switch (fdwReason) {
 	case DLL_PROCESS_ATTACH:
 		DisableThreadLibraryCalls(hinstDll);
-		CreateThread(0, 0, (LPTHREAD_START_ROUTINE)MainThread, hinstDll, 0, 0);
+		CreateThread(0, 0, (LPTHREAD_START_ROUTINE)MainThread, 0, 0, 0);
 		return TRUE;
 	case DLL_PROCESS_DETACH:
 		Shutdown();
-		return TRUE;
 		return TRUE;
 	default:
 		return TRUE;

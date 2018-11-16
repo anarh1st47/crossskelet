@@ -54,7 +54,7 @@ You can open/close the Menu with `Insert`
 ## Thanks
 
 * [LWSS](https://github.com/LWSS) and [Fuzion](https://github.com/LWSS/Fuzion) contributors - [Skeletux](https://github.com/LWSS/Skeletux) and [Fuzion](https://github.com/LWSS/Fuzion) projects, also LWSS gives me some help in pm
-* [McSwaggens](https://github.com/McSwaggens), [luk1337](https://github.com/luk1337), [AnterGhost](https://github.com/AnterGhost), [nvllvs](https://github.com/nvllvs) and another [AimTux](https://github.com/AimTuxOfficial) contributors.
+* [McSwaggens](https://github.com/McSwaggens), [luk1337](https://github.com/luk1337), [AnterGhost](https://github.com/AnterGhost), [nvllvs](https://github.com/nvllvs), [kvdrrrrr](https://github.com/kvdrrrrr), [lolaristocrat](https://github.com/lolaristocrat) and another [AimTux](https://github.com/AimTuxOfficial) contributors.
 * [Atex](https://www.unknowncheats.me/forum/members/602638.html) - linux basehook project
 * [aixxe](https://github.com/aixxe) - cstrike-basehook-linux project
 * [MarkHC](https://github.com/MarkHC) and CSGOSimple contributors - CSGOSimple project
